@@ -33,6 +33,9 @@
   - ose_app_node_sg
   - ose_master_sg
   - bastion_sg
+- name: pause to fix sg dependency
+  pause:
+    seconds: 10
 - name: remove sg
   ec2_group:
     name: "{{ item }}"
@@ -49,6 +52,7 @@
     region: "{{ region }}"
     state: absent
   with_items: "groups['security_group_bastion_sg']"
+  ignore_errors: true
 - name: Remove policy used for user
   iam_policy:
     iam_name: "{{ s3_username }}"

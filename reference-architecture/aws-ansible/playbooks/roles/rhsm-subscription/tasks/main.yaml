@@ -6,3 +6,4 @@
     state: present
     pool: "^(60 Day Supported OpenShift Enterprise|OpenShift Enterprise, Standard|OpenShift Enterprise, Premium|Employee)"
   register: register_result
+  when: deployment_type == "openshift-enterprise"
