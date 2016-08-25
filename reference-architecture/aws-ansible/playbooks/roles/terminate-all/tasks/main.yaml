@@ -4,7 +4,7 @@
      state: absent
      region: "{{ region }}"
      instance_ids: "{{ hostvars[item].ec2_id }}"
-  with_items: "groups['key_OSE-key']"
+  with_items: "groups['key_CI-key']"
 - name: Remove ELBs
   ec2_elb_lb:
     name: "{{ item }}"
@@ -121,8 +121,6 @@
       record: "{{ master_instance_prefix }}01.{{ public_hosted_zone }}"
       type: A
   register: master1
-- name: debug
-  debug: var=master1
 - name: Remove DNS in Route53
   route53:
       command: delete
@@ -236,17 +234,3 @@
       ttl: "{{ bastion.set.ttl }}"
       type: "{{ bastion.set.type }}"
       value: "{{ bastion.set.value }}"
-- name: Lookup DNS in Route53
-  route53:
-    command: get
-    zone: "{{ public_hosted_zone }}"
-    record: "\\*.{{ osm_default_subdomain }}"
-    type: CNAME
-  register: router_elb
-- name: Remove DNS in Route53
-  route53:
-    command: delete
-    zone: "{{ public_hosted_zone }}"
-    record: "\\*.{{ osm_default_subdomain }}"
-    type: "{{ router_elb.set.type }}"
-    value: "{{ router_elb.set.value }}"
