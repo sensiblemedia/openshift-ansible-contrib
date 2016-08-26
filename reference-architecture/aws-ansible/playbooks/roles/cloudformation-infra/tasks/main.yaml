@@ -23,7 +23,6 @@
       BastionInstanceType: "{{ node_instance_type }}"
       MasterRootVolSize: 10
       BastionRootVolType: gp2
-      MasterRootVolSize: 35
       MasterRootVolType: gp2
       MasterDockerVolSize: "{{ docker_storage }}"
       MasterDockerVolType: gp2
@@ -70,7 +69,6 @@
       BastionInstanceType: "{{ node_instance_type }}"
       MasterRootVolSize: 10
       BastionRootVolType: gp2
-      MasterRootVolSize: 35
       MasterRootVolType: gp2
       MasterDockerVolSize: "{{ docker_storage }}"
       MasterDockerVolType: gp2
