@@ -5,7 +5,7 @@
     groups: masters, etcd, nodes, cluster_hosts
     openshift_node_labels:
       role: master
-  with_items: "groups['tag_ose-role-master']"
+  with_items: "{{ groups['tag_openshift-role_master'] }}"
 
 - name: Add a master to the primary masters group
   add_host:
@@ -13,7 +13,7 @@
     groups: primary_master
     openshift_node_labels:
       role: master
-  with_items: "groups['tag_ose-role-master'].0"
+  with_items: "{{ groups['tag_openshift-role_master'].0 }}"
 
 - name: Add infra instances to host group
   add_host:
@@ -21,7 +21,7 @@
     groups: nodes, cluster_hosts, schedulable_nodes
     openshift_node_labels:
       role: infra
-  with_items: "groups['tag_ose-role-infra']"
+  with_items: "{{ groups['tag_openshift-role_infra'] }}"
 
 - name: Add app instances to host group
   add_host:
@@ -29,4 +29,4 @@
     groups: nodes, cluster_hosts, schedulable_nodes
     openshift_node_labels:
       role: app
-  with_items: "groups['tag_ose-role-app']"
+  with_items: "{{ groups['tag_openshift-role_app'] }}"
