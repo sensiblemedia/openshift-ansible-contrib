@@ -133,8 +133,7 @@
       "Type": "String"
     },
     "BastionSg": {
-      "Type": "String",
-      "Default": "bastion-sg"
+      "Type": "String"
     }
   },
   "Resources": {
