@@ -426,6 +426,7 @@
       "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
       "Properties": {
         "CrossZone": "true",
+        "Tags": [ {"Key": "Name", "Value": "ose_internal_master_elb"} ],
         "HealthCheck": {
           "HealthyThreshold" : "2",
           "Interval" : "5",
@@ -459,6 +460,7 @@
       "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
       "Properties": {
         "CrossZone": "true",
+        "Tags": [ {"Key": "Name", "Value": "ose_master_elb"} ],
         "HealthCheck": {
           "HealthyThreshold" : "2",
           "Interval" : "5",
@@ -491,6 +493,7 @@
       "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
       "Properties": {
         "CrossZone": "true",
+        "Tags": [ {"Key": "Name", "Value": "ose_router_elb"} ],
         "HealthCheck": {
           "HealthyThreshold" : "2",
           "Interval" : "5",
