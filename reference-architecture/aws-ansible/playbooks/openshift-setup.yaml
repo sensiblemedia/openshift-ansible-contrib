@@ -1,7 +1,5 @@
 - include: ../../../../openshift-ansible/playbooks/byo/openshift-cluster/config.yml
   vars:
-    ansible_ssh_user: ec2-user
-    ansible_become: true
     debug_level: 2
     openshift_debug_level: "{{ debug_level }}"
     openshift_node_debug_level: "{{ node_debug_level | default(debug_level, true) }}"
