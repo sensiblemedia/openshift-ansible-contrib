@@ -1,9 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
   "Parameters": {
-    "VpcCidrBlock": {
-      "Type": "String"
-    },
     "VpcName": {
       "Type": "String",
       "Default": "ose-on-aws"
@@ -817,7 +814,7 @@
           "KeyName" : {"Ref": "KeyName"},
 	      "InstanceType": {"Ref": "MasterInstanceType"},
           "SecurityGroupIds": [{ "Fn::GetAtt" : ["NodeSG", "GroupId"] }, { "Fn::GetAtt" : ["MasterSG", "GroupId"] }, { "Fn::GetAtt" : ["EtcdSG", "GroupId"] }],
-          "SubnetId" : {"Ref": "PrivateSubnet2"},
+          "SubnetId" : {"Ref": "PrivateSubnet3"},
           "IamInstanceProfile": { "Ref": "MasterInstanceProfile" },
           "Tags": [
             { "Key": "Name",

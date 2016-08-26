@@ -668,7 +668,6 @@
         "Master01",
         "Master02",
         "Master03",
-        "Bastion",
         "MasterExtElb"
       ],
       "Properties": {
@@ -885,7 +884,7 @@
           "KeyName" : {"Ref": "KeyName"},
 	      "InstanceType": {"Ref": "MasterInstanceType"},
           "SecurityGroupIds": [{ "Fn::GetAtt" : ["NodeSG", "GroupId"] }, { "Fn::GetAtt" : ["MasterSG", "GroupId"] }, { "Fn::GetAtt" : ["EtcdSG", "GroupId"] }],
-          "SubnetId" : {"Ref": "PrivateSubnet2"},
+          "SubnetId" : {"Ref": "PrivateSubnet3"},
           "IamInstanceProfile": { "Ref": "MasterInstanceProfile" },
           "Tags": [
             { "Key": "Name",
