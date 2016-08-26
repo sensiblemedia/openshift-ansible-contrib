@@ -1,6 +1,8 @@
 # AWS instance specific configuration
 bastion_instance_type: t2.micro
 docker_storage: 25
+etcd_storage: 25
+emptydir_storage: 50
 vpc_prefix: ose-multi-az-vpc
 public_subnet_prefix: OSE-Public-Subnet
 private_subnet_prefix: OSE-Private-Subnet
@@ -14,7 +16,7 @@ public_sub3: 10.20.6.0/24
 reverse_addr: 20.10.in-addr.arpa
 
 
-# Route53
+# Hostname Prefix
 master_instance_prefix: ose-master
 app_instance_prefix: ose-app-node
 infra_instance_prefix: ose-infra-node
