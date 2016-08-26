@@ -54,7 +54,7 @@
 - include: openshift-setup.yaml 
 - hosts: localhost
   connection: local
-  gather_facts: no
+  gather_facts: yes
   become: no
   vars_files:
       - vars/main.yaml
@@ -62,7 +62,7 @@
       - s3-registry-user
       - s3-registry-bucket
 - hosts: schedulable_nodes
-  gather_facts: yes
+  gather_facts: no
   become: yes
   vars_files:
       - vars/main.yaml
@@ -70,7 +70,7 @@
       - openshift-images
       - openshift-emptydir-quota
 - hosts: primary_master
-  gather_facts: yes
+  gather_facts: no 
   become: yes
   vars_files:
       - vars/main.yaml
@@ -86,7 +86,7 @@
   roles:
       - openshift-default-selector
 - hosts: primary_master
-  gather_facts: yes
+  gather_facts: no
   become: yes
   vars_files:
       - vars/main.yaml
