@@ -521,10 +521,10 @@
         "IpProtocol": "udp",
         "FromPort": "4789",
         "ToPort": "4789",
-        "CidrIp": "0.0.0.0/0"
+        "SourceSecurityGroupId": { "Fn::GetAtt": [ "NodeSG", "GroupId" ] }
       }
     },
-    "NodeIngressNodeVXLAN": {
+    "NodeIngressSsh": {
       "Type": "AWS::EC2::SecurityGroupIngress",
       "Properties":{
         "GroupId": { "Fn::GetAtt": [ "NodeSG", "GroupId" ] },
