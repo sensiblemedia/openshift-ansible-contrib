@@ -32,6 +32,7 @@ class LookupModule(LookupBase):
             if conn is None:
                 raise errors.AnsibleError("Could not connet to region %s" % region)
             zones = [z.name for z in conn.get_all_zones()]
+	    if "us-east-1b" in zones: zones.remove("us-east-1b");
             return zones
         except Exception as e:
             raise errors.AnsibleError("Could not lookup zones for region: %s\nexception: %s" % (region, e))
