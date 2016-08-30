@@ -1,4 +1,10 @@
 ---
+- name: Add bastion to group
+  add_host:
+    name: "bastion.{{ public_hosted_zone }}"
+    groups: bastion
+  when: byo_bastion == "no"
+
 - name: Add masters to requisite groups
   add_host:
     name: "{{ hostvars[item].ec2_tag_Name }}"
