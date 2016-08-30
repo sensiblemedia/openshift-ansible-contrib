@@ -20,6 +20,9 @@
     "PublicHostedZone": {
       "Type": "String"
     },
+    "Region": {
+      "Type": "String"
+    },
     "MasterClusterPublicHostname": {
       "Type": "String"
     },
@@ -129,6 +132,9 @@
       "Type": "String",
       "Default": "gp2"
     }
+  },
+  "Conditions": {
+    "CreateDhcpOpts": {"Fn::Equals" : [{"Ref" : "Region"}, "us-east-1"]}
   },
   "Resources": {
     "Vpc": {
@@ -318,6 +324,7 @@
      },
     "DHCPOpts" : {
       "Type" : "AWS::EC2::DHCPOptions",
+      "Condition": "CreateDhcpOpts",
       "Properties" : {
         "DomainName": "ec2.internal",
         "DomainNameServers": [ "AmazonProvidedDNS" ]
@@ -325,6 +332,7 @@
     },
     "AssociateOpts" : {
       "Type" : "AWS::EC2::VPCDHCPOptionsAssociation",
+      "Condition": "CreateDhcpOpts",
       "Properties" : {
           "VpcId": { "Ref" : "Vpc" },
           "DhcpOptionsId": { "Ref" : "DHCPOpts" }

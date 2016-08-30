@@ -6,6 +6,7 @@
     region: "{{ region }}"
     template: "roles/cloudformation-infra/files/greenfield.json"
     template_parameters:
+      Region: "{{ region }}"
       Route53HostedZone: "{{ public_hosted_zone }}."
       PublicHostedZone: "{{ public_hosted_zone }}"
       MasterApiPort: "{{ console_port }}"
