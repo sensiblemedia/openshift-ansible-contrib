@@ -44,7 +44,7 @@
 
 - name: Create Brownfield Infrastructure
   cloudformation:
-    stack_name: "OpenShift-Infra"
+    stack_name: "OpenShift-Infra-Brownfield"
     state: "present"
     region: "{{ region }}"
     template: "roles/cloudformation-infra/files/brownfield.json"
@@ -90,7 +90,7 @@
 
 - name: Create Brownfield Infrastructure with existing bastion
   cloudformation:
-    stack_name: "OpenShift-Infra"
+    stack_name: "OpenShift-Infra-Brownfield-wo-bastion"
     state: "present"
     region: "{{ region }}"
     template: "roles/cloudformation-infra/files/brownfield-byo-bastion.json"
@@ -113,9 +113,7 @@
       KeyName: "{{ keypair }}"
       MasterInstanceType: "{{ master_instance_type }}"
       AmiId: "{{ ami }}"
-      BastionInstanceType: "{{ node_instance_type }}"
       MasterRootVolSize: 10
-      BastionRootVolType: gp2
       MasterRootVolType: gp2
       MasterDockerVolSize: "{{ docker_storage }}"
       MasterDockerVolType: gp2
