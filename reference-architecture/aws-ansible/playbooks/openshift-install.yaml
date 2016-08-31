@@ -10,7 +10,6 @@
 - hosts: bastion 
   gather_facts: no
   become: yes
-  serial: 1
   user: ec2-user
   vars_files:
       - vars/main.yaml
@@ -24,7 +23,6 @@
   vars_files:
       - vars/main.yaml
   roles:
-      - host-up
       - rhsm-subscription
 - hosts: cluster_hosts
   gather_facts: no
