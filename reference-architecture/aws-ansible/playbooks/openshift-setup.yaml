@@ -1,4 +1,4 @@
-- include: ../../../../openshift-ansible/playbooks/byo/openshift-cluster/config.yml
+- include: /usr/share/ansible/openshift-ansible/playbooks/byo/config.yml 
   vars:
     debug_level: 2
     openshift_debug_level: "{{ debug_level }}"
