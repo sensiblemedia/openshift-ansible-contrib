@@ -412,16 +412,6 @@
         "SourceSecurityGroupId": { "Fn::GetAtt": [ "EtcdSG", "GroupId" ] }
       }
     },
-    "BastionIngressSSH": {
-      "Type": "AWS::EC2::SecurityGroupIngress",
-      "Properties":{
-        "GroupId": { "Fn::GetAtt": [ "MasterSG", "GroupId" ] },
-        "IpProtocol": "tcp",
-        "FromPort": "22",
-        "ToPort": "22",
-        "SourceSecurityGroupId": {"Ref": "BastionSg"}
-      }
-    },
     "MasterIntElb": {
       "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
       "Properties": {

@@ -632,16 +632,6 @@
         "SourceSecurityGroupId": { "Fn::GetAtt": [ "EtcdSG", "GroupId" ] }
       }
     },
-    "BastionIngressSSH": {
-      "Type": "AWS::EC2::SecurityGroupIngress",
-      "Properties":{
-        "GroupId": { "Fn::GetAtt": [ "MasterSG", "GroupId" ] },
-        "IpProtocol": "tcp",
-        "FromPort": "22",
-        "ToPort": "22",
-        "SourceSecurityGroupId": { "Fn::GetAtt": [ "BastionSg", "GroupId" ] }
-      }
-    },
     "MasterIntElb": {
       "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
       "Properties": {
@@ -848,12 +838,14 @@
     },
     "MasterInstanceProfile": {
       "Type": "AWS::IAM::InstanceProfile",
+      "DependsOn": "MasterPolicy",
       "Properties": {
         "Roles": [ { "Ref": "MasterPolicy" } ]
       }
     },
     "NodeInstanceProfile": {
       "Type": "AWS::IAM::InstanceProfile",
+      "DependsOn": "NodePolicy",
       "Properties": {
         "Roles": [ { "Ref": "NodePolicy" } ]
       }
@@ -957,7 +949,7 @@
           "SubnetId" : {"Ref": "PublicSubnet1"},
           "Tags": [
             { "Key": "Name",
-              "Value": {"Fn::Join": [".", ["bastion",{"Ref": "Route53HostedZone"}]]}
+              "Value": {"Fn::Join": [".", ["bastion",{"Ref": "PublicHostedZone"}]]}
             }
           ],
           "BlockDeviceMappings" : [
@@ -988,6 +980,7 @@
        },
     "Master01" : {
        "Type" : "AWS::EC2::Instance",
+       "DependsOn": ["MasterInstanceProfile"],
        "Properties" : {
           "ImageId" : {"Ref": "AmiId"},
           "KeyName" : {"Ref": "KeyName"},
@@ -1033,6 +1026,7 @@
   },
     "Master02" : {
        "Type" : "AWS::EC2::Instance",
+       "DependsOn": ["MasterInstanceProfile"],
        "Properties" : {
           "ImageId" : {"Ref": "AmiId"},
           "KeyName" : {"Ref": "KeyName"},
@@ -1078,6 +1072,7 @@
    },
     "Master03" : {
        "Type" : "AWS::EC2::Instance",
+       "DependsOn": ["MasterInstanceProfile"],
        "Properties" : {
           "ImageId" : {"Ref": "AmiId"},
           "KeyName" : {"Ref": "KeyName"},
@@ -1123,6 +1118,7 @@
    },
     "InfraNode01" : {
        "Type" : "AWS::EC2::Instance",
+       "DependsOn": ["NodeInstanceProfile"],
        "Properties" : {
           "ImageId" : {"Ref": "AmiId"},
           "KeyName" : {"Ref": "KeyName"},
@@ -1168,6 +1164,7 @@
     },
     "InfraNode02" : {
        "Type" : "AWS::EC2::Instance",
+       "DependsOn": ["NodeInstanceProfile"],
        "Properties" : {
           "ImageId" : {"Ref": "AmiId"},
           "KeyName" : {"Ref": "KeyName"},
@@ -1213,6 +1210,7 @@
  },
     "AppNode01" : {
        "Type" : "AWS::EC2::Instance",
+       "DependsOn": ["NodeInstanceProfile"],
        "Properties" : {
           "ImageId" : {"Ref": "AmiId"},
           "KeyName" : {"Ref": "KeyName"},
@@ -1258,6 +1256,7 @@
  },
     "AppNode02" : {
        "Type" : "AWS::EC2::Instance",
+       "DependsOn": ["NodeInstanceProfile"],
        "Properties" : {
           "ImageId" : {"Ref": "AmiId"},
           "KeyName" : {"Ref": "KeyName"},
