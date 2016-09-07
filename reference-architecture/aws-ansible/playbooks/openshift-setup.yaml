@@ -10,8 +10,6 @@
       cloud-provider:
       - "aws"
     openshift_node_kubelet_args:
-      max-pods:
-      - "100"
       cloud-provider:
       - "aws"
       node-labels:
