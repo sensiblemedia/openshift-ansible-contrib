@@ -759,31 +759,7 @@
                 {
                   "Effect": "Allow",
                   "Action": "ec2:Describe*",
-                  "Resource": "*"
-                }
-              ]
-            }
-          },
-          {
-            "PolicyName": "node-attach",
-            "PolicyDocument": {
-              "Version" : "2012-10-17",
-              "Statement": [
-                {
-                  "Effect": "Allow",
                   "Action": "ec2:AttachVolume",
-                  "Resource": "*"
-                }
-              ]
-            }
-          },
-          {
-            "PolicyName": "node-detach",
-            "PolicyDocument": {
-              "Version" : "2012-10-17",
-              "Statement": [
-                {
-                  "Effect": "Allow",
                   "Action": "ec2:DetachVolume",
                   "Resource": "*"
                 }
@@ -815,18 +791,6 @@
                 {
                   "Effect": "Allow",
                   "Action": "ec2:*",
-                  "Resource": "*"
-                }
-              ]
-            }
-          },
-          {
-            "PolicyName": "master-elb-all",
-            "PolicyDocument": {
-              "Version" : "2012-10-17",
-              "Statement": [
-                {
-                  "Effect": "Allow",
                   "Action": "elasticloadbalancing:*",
                   "Resource": "*"
                 }
