@@ -563,9 +563,11 @@
               "Statement": [
                 {
                   "Effect": "Allow",
-                  "Action": "ec2:Describe*",
-                  "Action": "ec2:AttachVolume",
-                  "Action": "ec2:DetachVolume",
+                  "Action": [
+                     "ec2:Describe*",
+                     "ec2:AttachVolume",
+                     "ec2:DetachVolume"
+                  ], 
                   "Resource": "*"
                 }
               ]
@@ -595,8 +597,10 @@
               "Statement": [
                 {
                   "Effect": "Allow",
-                  "Action": "ec2:*",
-                  "Action": "elasticloadbalancing:*",
+                  "Action": [
+                     "ec2:*",
+                     "elasticloadbalancing:*"
+                  ],
                   "Resource": "*"
                 }
               ]
