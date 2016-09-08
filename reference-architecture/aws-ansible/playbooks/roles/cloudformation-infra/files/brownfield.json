@@ -786,7 +786,7 @@
           {
             "DeviceName": "/dev/xvdc",
             "Ebs": {
-              "DeleteOnTermination": "true",
+              "DeleteOnTermination": "false",
               "VolumeSize": {"Ref": "MasterEtcdVolSize"},
               "VolumeType": {"Ref": "MasterEtcdVolType"}
             }
@@ -831,7 +831,7 @@
           {
             "DeviceName": "/dev/xvdc",
             "Ebs": {
-              "DeleteOnTermination": "true",
+              "DeleteOnTermination": "false",
               "VolumeSize": {"Ref": "MasterEtcdVolSize"},
               "VolumeType": {"Ref": "MasterEtcdVolType"}
             }
@@ -876,7 +876,7 @@
           {
             "DeviceName": "/dev/xvdc",
             "Ebs": {
-              "DeleteOnTermination": "true",
+              "DeleteOnTermination": "false",
               "VolumeSize": {"Ref": "MasterEtcdVolSize"},
               "VolumeType": {"Ref": "MasterEtcdVolType"}
             }

@@ -20,3 +20,17 @@
     template: roles/cloudformation-infra/files/greenfield.json
     region: "{{ region }}"
   ignore_errors: true
+- name: lookup up vols
+  ec2_vol_facts:
+    region: "{{ region }}"
+    filters:
+      status: available
+  register: vols
+- name: cleanup
+  ec2_vol:
+    id: "{{ item.id }}"
+    state: absent
+    region: "{{ region }}"
+  with_items:
+    - "{{ vols.volumes }}"
+  when: ci
