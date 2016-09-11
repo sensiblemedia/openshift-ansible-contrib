@@ -8,7 +8,7 @@ import sys
 @click.command()
 
 ### Cluster options
-@click.option('--console-port', default='8443', type=click.IntRange(1,65535), help='OpenShift web console port',
+@click.option('--console-port', default='443', type=click.IntRange(1,65535), help='OpenShift web console port',
               show_default=True)
 @click.option('--deployment-type', default='openshift-enterprise', help='OpenShift deployment type',
               show_default=True)
@@ -86,7 +86,7 @@ def launch_refarch_env(region=None,
                     public_hosted_zone=None,
                     app_dns_prefix=None,
                     deployment_type=None,
-                    console_port=8443,
+                    console_port=443,
                     rhsm_user=None,
                     rhsm_password=None,
                     verbose=0):
