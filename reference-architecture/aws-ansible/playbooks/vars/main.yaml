@@ -7,27 +7,8 @@ vpc_prefix: ose-multi-az-vpc
 public_subnet_prefix: OSE-Public-Subnet
 private_subnet_prefix: OSE-Private-Subnet
 cidr_block: 10.20.0.0/16
-private_sub1: 10.20.1.0/24
-private_sub2: 10.20.2.0/24
-private_sub3: 10.20.3.0/24
-public_sub1: 10.20.4.0/24
-public_sub2: 10.20.5.0/24
-public_sub3: 10.20.6.0/24
-reverse_addr: 20.10.in-addr.arpa
-
-
-# Hostname Prefix
-master_instance_prefix: ose-master
-app_instance_prefix: ose-app-node
-infra_instance_prefix: ose-infra-node
-
-# Instance group tag
-master_tag: master
-infra_tag: infra
-app_tag: app
-master_group_tag: "tag_openshift-role_{{ master_tag }}"
-app_group_tag: "tag_openshift-role_{{ app_tag }}"
-infra_group_tag: "tag_openshift-role_{{ infra_tag }}"
+subnet_blocks: 10.20.1.0/24,10.20.2.0/24,10.20.3.0/24,10.20.4.0/24,10.20.5.0/24,10.20.6.0/24
+byo_bastion: no
 
 # OpenShift variables
 openshift_registry_selector: "role=infra"
