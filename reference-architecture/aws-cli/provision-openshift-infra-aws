@@ -40,13 +40,15 @@ sh -x ./route53-zones
 
 DEPLOY_SEC_GRPS() {
 ECHO_STAGE "deploying security groups"
+sh -x ./sec-groups/security-groups
 sh -x ./sec-groups/master-elb-sg
 sh -x ./sec-groups/internal-master-elb-sg
+sh -x ./sec-groups/etcd-sg
 sh -x ./sec-groups/bastion-sg
 sh -x ./sec-groups/master-sg
 sh -x ./sec-groups/router-elb-sg
 sh -x ./sec-groups/node-sg
-sh -x ./sec-groups/app-node-sg
+sh -x ./sec-groups/infra-node-sg
 }
 
 DEPLOY_DHCP() {
@@ -108,11 +110,11 @@ DEPLOY_IAM
 DEPLOY_DNS_ZONES
 DEPLOY_SEC_GRPS
 DEPLOY_DHCP
-DEPLOY_BASTION
-DEPLOY_MASTERS
-DEPLOY_INFRA_NODES
-DEPLOY_APP_NODES
-DEPLOY_ROUTER
+#DEPLOY_BASTION
+#DEPLOY_MASTERS
+#DEPLOY_INFRA_NODES
+#DEPLOY_APP_NODES
+#DEPLOY_ROUTER
 
 ) 2>&1 | tee ${LOGFILE}
 

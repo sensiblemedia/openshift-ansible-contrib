@@ -36,8 +36,9 @@ AZ_3=us-east-1e
 
 # Security Groups
 MASTERS_SEC_GROUP=${UNIQ_VAR}-Master-Sec-Group
+ETCD_SEC_GROUP=${UNIQ_VAR}-ETCD-Sec-Group
 NODES_SEC_GROUP=${UNIQ_VAR}-Node-Sec-Group
-APP_NODES_SEC_GROUP=${UNIQ_VAR}-Application-Nodes-Sec-Group
+INFRA_NODES_SEC_GROUP=${UNIQ_VAR}-Infra-Nodes-Sec-Group
 BASTION_SEC_GROUP=${UNIQ_VAR}-Bastion-Sec-Group
 INTERNAL_MASTER_ELB_SEC_GRP=${UNIQ_VAR}-Internal-Master-ELB-Sec-Group
 MASTER_ELB_SEC_GRP=${UNIQ_VAR}-Master-ELB-Sec-Group
