@@ -38,6 +38,10 @@ while [ -z "$NODES_SEC_GRP_ID" ]; do
     --output text)
 done
 
+aws ec2 create-tags \
+--resources $NODES_SEC_GRP_ID \
+--tags Key=Name,Value=$NODES_SEC_GROUP
+
 # Create the ETCD security group
 aws ec2 create-security-group \
 --group-name $ETCD_SEC_GROUP \

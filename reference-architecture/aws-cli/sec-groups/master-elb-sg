@@ -24,6 +24,6 @@ aws ec2 authorize-security-group-ingress \
 --port 443 \
 --cidr 0.0.0.0/0
 
-aws ec2 authorize-security-group-egress \ 
---group-id $MASTER_ELB_SEC_GRP_ID --ip-permissions \
-'[{"IpProtocol": "tcp", "FromPort": 443, "ToPort": 443, "UserIdGroupPairs": [{"GroupId": \"$MASTERS_SEC_GRP_ID\"}]}]'
+aws ec2 authorize-security-group-egress --group-id $MASTER_ELB_SEC_GRP_ID --protocol tcp --port 443 --source-group $MASTERS_SEC_GRP_ID
+
+aws ec2 revoke-security-group-egress --group-id $MASTER_ELB_SEC_GRP_ID --protocol all --port all --cidr 0.0.0.0/0

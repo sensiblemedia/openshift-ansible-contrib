@@ -30,10 +30,8 @@ aws ec2 authorize-security-group-ingress \
 --port 80 \
 --cidr 0.0.0.0/0
 
-aws ec2 authorize-security-group-egress \
---group-id $ROUTER_ELB_SEC_GRP_ID --ip-permissions \
-'[{"IpProtocol": "tcp", "FromPort": 80, "ToPort": 80, "UserIdGroupPairs": [{"GroupId": \"$INFRA_NODE_SEC_GRP_ID\"}]}]'
+aws ec2 authorize-security-group-egress --group-id $ROUTER_ELB_SEC_GRP_ID --protocol tcp --port 80 --source-group $INFRA_NODE_SEC_GRP_ID
 
-aws ec2 authorize-security-group-egress \ 
---group-id $ROUTER_ELB_SEC_GRP_ID --ip-permissions \
-'[{"IpProtocol": "tcp", "FromPort": 443, "ToPort": 443, "UserIdGroupPairs": [{"GroupId": \"$INFRA_NODE_SEC_GRP_ID\"}]}]'
+aws ec2 authorize-security-group-egress --group-id $ROUTER_ELB_SEC_GRP_ID --protocol tcp --port 443 --source-group $INFRA_NODE_SEC_GRP_ID
+
+aws ec2 revoke-security-group-egress --group-id $ROUTER_ELB_SEC_GRP_ID --protocol all --port all --cidr 0.0.0.0/0
