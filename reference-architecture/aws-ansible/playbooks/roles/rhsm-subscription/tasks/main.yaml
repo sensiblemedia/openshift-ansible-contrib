@@ -6,3 +6,4 @@
     state: present
     pool: "^(60 Day Supported OpenShift Enterprise|OpenShift Enterprise, Standard|OpenShift Enterprise, Premium|Employee)"
   register: register_result
+  when: (ansible_os_family == "RedHat" and ansible_distribution != "Fedora")

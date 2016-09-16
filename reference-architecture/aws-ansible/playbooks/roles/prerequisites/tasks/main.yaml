@@ -11,3 +11,4 @@
       - bash-completion
       - docker
       - python-httplib2
+  when: ansible_pkg_mgr != "unknown" 

@@ -1,4 +1,11 @@
 ---
+- name: Create client symlinks
+  file:
+    path: /usr/bin/oc
+    state: link
+    src: /usr/local/bin/oc
+  when: openshift.common.is_containerized | bool
+
 - name: Switch to default project
   command: oc project default
 
