@@ -4,7 +4,7 @@ cloud_config_modules:
 - mounts
 
 fs_setup:
-- label: etcd_storage
+- label: emptydir
   filesystem: xfs
   device: /dev/xvdc
   partition: auto
