@@ -35,7 +35,7 @@
   delay: 30
 
 - name: Disable config change trigger on registry DC
-  command: "{{ openshift.common.client_binary }} patch dc/docker-registry -p '{"spec":{"triggers":[]}}'"
+  command: "{{ openshift.common.client_binary }} patch dc/docker-registry -p '{\"spec\":{\"triggers\":[]}}'"
 
 - name: Set up registry environment variable
   command: "{{ openshift.common.client_binary }} env dc/docker-registry REGISTRY_CONFIGURATION_PATH=/etc/registryconfig/config.yml"
@@ -72,7 +72,7 @@
   register: deploy_latest
 
 - name: Re-enable config trigger on docker-registry
-  command: "{{ openshift.common.client_binary }} patch dc/docker-registry -p '{"spec":{"triggers":[{"type":"ConfigChange"}]}}'"
+  command: "{{ openshift.common.client_binary }} patch dc/docker-registry -p '{\"spec\":{\"triggers\":[{\"type\":\"ConfigChange\"}]}}'"
   when: deploy_latest | success
 
 - name: Determine registry deployment version
