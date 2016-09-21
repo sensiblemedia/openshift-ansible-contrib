@@ -3,7 +3,7 @@
   command: "{{ openshift.common.client_binary }} project default"
 
 - name: set the selector for the default namespace
-  command: "{{ openshift.common.client_binary }} annotate namespace default openshift.io/node-selector=role=infra"
+  command: "{{ openshift.common.client_binary }} annotate namespace default openshift.io/node-selector=role=infra --overwrite"
   ignore_errors: true
 
 - name: Check whether a registry exists or not
