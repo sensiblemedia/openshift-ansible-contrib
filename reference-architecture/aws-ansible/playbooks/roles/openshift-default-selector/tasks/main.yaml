@@ -5,8 +5,16 @@
      regexp: 'defaultNodeSelector: ""'
      replace: 'defaultNodeSelector: "role=app"'
      backup: yes
+
 - name: restart the master
   service:
      name: atomic-openshift-master-api
      state: restarted
   when: deployment_type == "openshift-enterprise"
+
+- name: restart the master
+  service:
+     name: origin-master-api
+     state: restarted
+  when: deployment_type == "origin"
+
