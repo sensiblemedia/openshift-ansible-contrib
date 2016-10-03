@@ -15,10 +15,12 @@ The code in this repository handles all of the AWS specific components except fo
 ```
 $ *subscription-manager repos --enable rhel-7-server-optional-rpms*
 $ *subscription-manager repos --enable rhel-7-server-ose-3.2-rpms*
+$ *subscription-manager repos --enable rhel-7-server-ose-3.3-rpms*
 $ *rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm*
 $ *yum -y install atomic-openshift-utils \ *
   *               python2-boto \ *
   *               git \ *
+  *               ansible-2.2.0-0.5.prerelease.el7.noarch \ *
   *               python-netaddr \ *
   *               python-httplib2 *
 ```
@@ -70,5 +72,5 @@ If the SSH key that you plan on using in AWS already exists then perform the fol
 ### Existing AWS Environment (Brownfield)
 If the installing OpenShift into an existing AWS VPC perform the following. The script will prompt for vpc and subnet IDs.  The Brownfield deployment can also skip the creation of a Bastion server if one already exists. For mappings of security groups make sure the bastion security group is named bastion-sg.
 ```
-./ose-on-aws.py --create-vpc=no --byo-bastion=yes --keypair=OSE-key --rhsm-user=rh-user --rhsm-password=password --public-hosted-zone=sysdeseng.com --rhsm-pool="Red Hat OpenShift Container Platform, Standard, 2-Core --bastion-sg=sg-a32fa3"
+./ose-on-aws.py --create-vpc=no --byo-bastion=yes --keypair=OSE-key --rhsm-user=rh-user --rhsm-password=password --public-hosted-zone=sysdeseng.com --rhsm-pool="Red Hat OpenShift Container Platform, Standard, 2-Core" --bastion-sg=sg-a32fa3
 ```
