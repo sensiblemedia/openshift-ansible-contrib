@@ -8,6 +8,37 @@
       # Group systems
       - instance-groups
       
+- hosts: bastion 
+  gather_facts: no
+  become: yes
+  user: ec2-user
+  vars_files:
+      - vars/main.yaml
+  roles:
+      - host-up
+      
+- hosts: cluster_hosts
+  gather_facts: yes 
+  become: yes
+  serial: 1
+  user: ec2-user
+  vars_files:
+      - vars/main.yaml
+  roles:
+      - rhsm-subscription
+      
+- hosts: cluster_hosts
+  gather_facts: no
+  become: yes
+  user: ec2-user
+  vars_files:
+      - vars/main.yaml
+  roles:
+      - rhsm-repos
+      - prerequisites
+      
+- include: openshift-setup.yaml
+
 - hosts: localhost
   connection: local
   gather_facts: yes
