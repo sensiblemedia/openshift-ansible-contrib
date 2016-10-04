@@ -9,6 +9,7 @@ The repository contains Ansible playbooks which deploy 3 Masters in different av
 ## Prerequisites
 A registered domain must be added to Route53 as a Hosted Zone before installation.  This registered domain can be purchased through AWS.
 
+<<<<<<< HEAD
 ### Deploying OpenShift Container Platform
 The code in this repository handles all of the AWS specific components except for the installation of OpenShift. We rely on the OpenShift playbooks from the openshift-ansible-playbooks rpm. You will need the rpm installed on the workstation before using ose-on-aws.py.
 
@@ -30,6 +31,17 @@ The playbooks in the repository also have the ability to configure CentOS or RHE
 
 ```
 $ rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+$ yum -y install python-pip python-devel gcc libffi-devel openssl-devel
+$ pip install git+https://github.com/ansible/ansible.git@stable-2.2
+$ mkdir -p /usr/share/ansible/openshift-ansible
+$ git clone https://github.com/openshift/openshift-ansible.git /usr/share/ansible/openshift-ansible
+```
+
+### Deploying Origin
+The playbooks in the repository also have the ability to configure CentOS or RHEL instances to prepare for the installation of Origin. Due to the OpenShift playbooks not being available in RPM format outside of a OpenShift Container Platform subscription the openshift-ansible repository must be cloned.
+
+```
+$ *rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm*
 $ yum -y install python-pip python-devel gcc libffi-devel openssl-devel
 $ pip install git+https://github.com/ansible/ansible.git@stable-2.2
 $ mkdir -p /usr/share/ansible/openshift-ansible
@@ -88,6 +100,7 @@ If the SSH key that you plan on using in AWS already exists then perform the fol
 ./ose-on-aws.py --keypair=OSE-key --rhsm-user=rh-user --rhsm-password=password --public-hosted-zone=sysdeseng.com --rhsm-pool="Red Hat OpenShift Container Platform, Standard, 2-Core"
 
 ```
+
 **OpenShift Origin**
 ```
 ./ose-on-aws.py --keypair=OSE-key --public-hosted-zone=sysdeseng.com --deployment-type=origin --ami=ami-6d1c2007
