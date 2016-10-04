@@ -9,7 +9,6 @@ The repository contains Ansible playbooks which deploy 3 Masters in different av
 ## Prerequisites
 A registered domain must be added to Route53 as a Hosted Zone before installation.  This registered domain can be purchased through AWS.
 
-<<<<<<< HEAD
 ### Deploying OpenShift Container Platform
 The code in this repository handles all of the AWS specific components except for the installation of OpenShift. We rely on the OpenShift playbooks from the openshift-ansible-playbooks rpm. You will need the rpm installed on the workstation before using ose-on-aws.py.
 
@@ -108,10 +107,12 @@ If the SSH key that you plan on using in AWS already exists then perform the fol
 ```
 ### Existing AWS Environment (Brownfield)
 If installing OpenShift Container Platform or Openshift Origin into an existing AWS VPC perform the following. The script will prompt for vpc and subnet IDs.  The Brownfield deployment can also skip the creation of a Bastion server if one already exists. For mappings of security groups make sure the bastion security group is named bastion-sg.
-** OpenShift Container Platform **
+
+**OpenShift Container Platform**
 ```
 ./ose-on-aws.py --create-vpc=no --byo-bastion=yes --keypair=OSE-key --rhsm-user=rh-user --rhsm-password=password --public-hosted-zone=sysdeseng.com --rhsm-pool="Red Hat OpenShift Container Platform, Standard, 2-Core" --bastion-sg=sg-a32fa3
 ```
+
 **OpenShift Origin**
 ```
 ./ose-on-aws.py --create-vpc=no --byo-bastion=yes --keypair=OSE-key --public-hosted-zone=sysdeseng.com --deployment-type=origin --ami=ami-6d1c2007 --bastion-sg=sg-a32fa3
