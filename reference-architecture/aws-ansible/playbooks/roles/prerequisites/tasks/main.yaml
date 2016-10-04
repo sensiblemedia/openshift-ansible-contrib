@@ -11,7 +11,6 @@
       - bash-completion
       - docker
       - python-httplib2
-  when: ansible_distribution == "RedHat"
 
 - name: Install the required rpms
   yum: name=NetworkManager state=latest

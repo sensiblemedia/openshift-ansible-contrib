@@ -10,3 +10,17 @@
       - rhel-7-server-extras-rpms
       - rhel-7-server-ose-3.3-rpms
   when: ansible_distribution == "RedHat"
+
+- name: Add repository
+  yum_repository:
+    name: epel
+    description: EPEL YUM repo
+    baseurl: http://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+  when: ansible_distribution != "RedHat"
+
+
+- name: Import EPEL GPG key.
+  rpm_key:
+    key: "http://mirror.sfo12.us.leaseweb.net/epel/RPM-GPG-KEY-EPEL-{{ ansible_distribution_major_version }}"
+    state: present
+  when: ansible_distribution != "RedHat"
