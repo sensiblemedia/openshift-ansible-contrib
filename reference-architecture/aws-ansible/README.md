@@ -13,16 +13,16 @@ A registered domain must be added to Route53 as a Hosted Zone before installatio
 The code in this repository handles all of the AWS specific components except for the installation of OpenShift. We rely on the OpenShift playbooks from the openshift-ansible-playbooks rpm. You will need the rpm installed on the workstation before using ose-on-aws.py.
 
 ```
-$ *subscription-manager repos --enable rhel-7-server-optional-rpms*
-$ *subscription-manager repos --enable rhel-7-server-ose-3.2-rpms*
-$ *subscription-manager repos --enable rhel-7-server-ose-3.3-rpms*
-$ *rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm*
-$ *yum -y install atomic-openshift-utils \ *
-  *               python2-boto \ *
-  *               git \ *
-  *               ansible-2.2.0-0.5.prerelease.el7.noarch \ *
-  *               python-netaddr \ *
-  *               python-httplib2 *
+$ subscription-manager repos --enable rhel-7-server-optional-rpms
+$ subscription-manager repos --enable rhel-7-server-ose-3.2-rpms
+$ subscription-manager repos --enable rhel-7-server-ose-3.3-rpms
+$ rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+$ yum -y install atomic-openshift-utils \ 
+                 python2-boto \ 
+                 git \ 
+                 ansible-2.2.0-0.5.prerelease.el7.noarch \ 
+                 python-netaddr \ 
+                 python-httplib2 
 ```
 
 ## Usage
