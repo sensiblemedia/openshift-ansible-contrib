@@ -1,5 +1,5 @@
 # The Reference Architecture OpenShift on Amazon Web Services
-This repository contains the scripts used to deploy an OpenShift environment based off of the Reference Architecture Guide for OpenShift 3.2 on Amazon Web Services.
+This repository contains the scripts used to deploy an OpenShift environment based off of the Reference Architecture Guide for OpenShift 3.3 on Amazon Web Services.
 
 ## Overview
 The repository contains Ansible playbooks which deploy 3 Masters in different availability zones, 2 infrastructure nodes and 2 applcation nodes. The Infrastrucute and Application nodes are split between two availbility zones.  The playbooks deploy a Docker registry and scale the router to the number of Infrastruture nodes.
@@ -13,16 +13,16 @@ A registered domain must be added to Route53 as a Hosted Zone before installatio
 The code in this repository handles all of the AWS specific components except for the installation of OpenShift. We rely on the OpenShift playbooks from the openshift-ansible-playbooks rpm. You will need the rpm installed on the workstation before using ose-on-aws.py.
 
 ```
-$ *subscription-manager repos --enable rhel-7-server-optional-rpms*
-$ *subscription-manager repos --enable rhel-7-server-ose-3.2-rpms*
-$ *subscription-manager repos --enable rhel-7-server-ose-3.3-rpms*
-$ *rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm*
-$ *yum -y install atomic-openshift-utils \ *
-  *               python2-boto \ *
-  *               git \ *
-  *               ansible-2.2.0-0.5.prerelease.el7.noarch \ *
-  *               python-netaddr \ *
-  *               python-httplib2 *
+$ subscription-manager repos --enable rhel-7-server-optional-rpms
+$ subscription-manager repos --enable rhel-7-server-ose-3.2-rpms
+$ subscription-manager repos --enable rhel-7-server-ose-3.3-rpms
+$ rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+$ yum -y install atomic-openshift-utils \ 
+                 python2-boto \ 
+                 git \ 
+                 ansible-2.2.0-0.5.prerelease.el7.noarch \ 
+                 python-netaddr \ 
+                 python-httplib2 
 ```
 
 ## Usage
@@ -57,6 +57,9 @@ The default region is us-east-1 but can be changed when running the ose-on-aws s
 
 ### AMI ID
 The AMI ID may need to change if the AWS IAM account does not have access to the Red Hat Cloud Access gold image or if deploying outside of the us-east-1 region.
+
+### Containerized Installation
+The option to install OpenShift is possible by providing the trigger --containerized=true. Using the --containerized=true also allows for the use of Atomic Host.
 
 ### New AWS Environment (Greenfield)
 When installing into an new AWS environment perform the following.   This will create the SSH key, bastion host, and VPC for the new environment.
