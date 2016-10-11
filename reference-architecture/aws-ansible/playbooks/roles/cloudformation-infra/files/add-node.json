@@ -82,7 +82,7 @@
           "UserData": {"Ref": "NodeUserData"},
           "KeyName" : {"Ref": "KeyName"},
 	  "InstanceType": {"Ref": "InstanceType"},
-	  "SecurityGroupIds": {"Ref": "NodeSg"},
+	  "SecurityGroupIds": [{"Ref": "NodeSg"}],
           "SubnetId" : {"Ref": "Subnet"},
           "IamInstanceProfile": { "Ref": "NodeInstanceProfile" },
           "Tags": [
