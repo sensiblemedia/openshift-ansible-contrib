@@ -37,7 +37,7 @@ import sys
 @click.option('--rhsm-pool', help='Red Hat Subscription Management Pool ID or Subscription Name')
 
 ### Miscellaneous options
-@click.option('--iam-role', help='Specify the name of the existing IAM Role',
+@click.option('--iam-role', help='Specify the name of the existing IAM Instance profile',
               show_default=True)
 @click.option('--shortname', help='Specify the hostname of the sytem',
               show_default=True)
@@ -80,7 +80,7 @@ def launch_refarch_env(region=None,
     public_hosted_zone = click.prompt('Hosted DNS zone for accessing the environment')
 
   if iam_role is None:
-    iam_role = click.prompt('Specify the name of the existing IAM Role')
+    iam_role = click.prompt('Specify the name of the existing IAM Instance Profile')
 
   if existing_sg is None:
     existing_sg = click.prompt('Node Security group')
