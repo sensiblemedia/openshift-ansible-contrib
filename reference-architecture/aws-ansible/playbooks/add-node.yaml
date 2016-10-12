@@ -49,6 +49,7 @@
       ec2_elb:
         instance_id: "{{ hostvars[item].ec2_id }}" 
         ec2_elbs: "{{ infra_elb_name }}"
+        region: "{{ region }}"
         state: present
       with_items: "{{ groups['tag_provision_node'] }}"
       when: node_type == "infra"
