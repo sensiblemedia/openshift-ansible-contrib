@@ -41,7 +41,7 @@ import sys
               show_default=True)
 @click.option('--shortname', help='Specify the hostname of the sytem',
               show_default=True)
-@click.option('--existing-sg', help='Specify the already existing node security group id',
+@click.option('--node-sg', help='Specify the already existing node security group id',
               show_default=True)
 @click.option('--infra-sg', help='Specify the already existing Infrastructure node security group id',
               show_default=True)
@@ -59,7 +59,7 @@ def launch_refarch_env(region=None,
                     node_instance_type=None,
                     keypair=None,
                     subnet_id=None,
-                    existing_sg=None,
+                    node_sg=None,
                     infra_sg=None,
                     public_hosted_zone=None,
                     app_dns_prefix=None,
@@ -82,8 +82,8 @@ def launch_refarch_env(region=None,
   if iam_role is None:
     iam_role = click.prompt('Specify the name of the existing IAM Instance Profile')
 
-  if existing_sg is None:
-    existing_sg = click.prompt('Node Security group')
+  if node_sg is None:
+    node_sg = click.prompt('Node Security group')
 
   if node_type in 'infra' and infra_sg is None:
     infra_sg = click.prompt('Infra Node Security group')
@@ -129,7 +129,7 @@ def launch_refarch_env(region=None,
   click.echo('\tnode_instance_type: %s' % node_instance_type)
   click.echo('\tkeypair: %s' % keypair)
   click.echo('\tsubnet_id: %s' % subnet_id)
-  click.echo('\texisting_sg: %s' % existing_sg)
+  click.echo('\tnode_sg: %s' % node_sg)
   click.echo('\tconsole port: %s' % console_port)
   click.echo('\tdeployment_type: %s' % deployment_type)
   click.echo('\tpublic_hosted_zone: %s' % public_hosted_zone)
@@ -174,7 +174,7 @@ def launch_refarch_env(region=None,
     create_key=no \
     create_vpc=no \
     subnet_id=%s \
-    existing_sg=%s \
+    node_sg=%s \
     infra_sg=%s \
     node_instance_type=%s \
     public_hosted_zone=%s \
@@ -192,7 +192,7 @@ def launch_refarch_env(region=None,
                     ami,
                     keypair,
                     subnet_id,
-                    existing_sg,
+                    node_sg,
                     infra_sg,
                     node_instance_type,
                     public_hosted_zone,
