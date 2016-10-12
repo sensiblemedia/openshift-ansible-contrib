@@ -150,7 +150,7 @@
     template: "roles/cloudformation-infra/files/add-node.json"
     template_parameters:
       NodeName: "{{ fqdn }}"
-      NodeSg: "{{ existing_sg }}"
+      NodeSg: "{{ node_sg }}"
       Subnet: "{{ subnet_id }}"
       Route53HostedZone: "{{ public_hosted_zone }}."
       KeyName: "{{ keypair }}"
@@ -175,7 +175,7 @@
     template: "roles/cloudformation-infra/files/add-infra-node.json"
     template_parameters:
       NodeName: "{{ fqdn }}"
-      NodeSg: "{{ existing_sg }}"
+      NodeSg: "{{ node_sg }}"
       InfraSg: "{{ infra_sg }}"
       Subnet: "{{ subnet_id }}"
       Route53HostedZone: "{{ public_hosted_zone }}."

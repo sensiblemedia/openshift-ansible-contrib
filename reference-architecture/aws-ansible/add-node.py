@@ -130,6 +130,7 @@ def launch_refarch_env(region=None,
   click.echo('\tkeypair: %s' % keypair)
   click.echo('\tsubnet_id: %s' % subnet_id)
   click.echo('\tnode_sg: %s' % node_sg)
+  click.echo('\tinfra_sg: %s' % infra_sg)
   click.echo('\tconsole port: %s' % console_port)
   click.echo('\tdeployment_type: %s' % deployment_type)
   click.echo('\tpublic_hosted_zone: %s' % public_hosted_zone)
