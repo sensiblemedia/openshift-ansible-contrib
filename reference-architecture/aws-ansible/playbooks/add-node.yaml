@@ -30,14 +30,6 @@
       
 - include: node-setup.yaml
 
-- hosts: new_nodes
-  gather_facts: no
-  become: yes
-  vars_files:
-      - vars/main.yaml
-  roles:
-      - openshift-emptydir-quota
-
 - hosts: primary_master
   gather_facts: yes 
   become: yes
@@ -45,6 +37,14 @@
       - vars/main.yaml
   roles:
       - infra-node-scaleup
+
+- hosts: new_nodes
+  gather_facts: no
+  become: yes
+  vars_files:
+      - vars/main.yaml
+  roles:
+      - openshift-emptydir-quota
 
 - hosts: localhost
   connection: local
@@ -58,6 +58,7 @@
         instance_id: "{{ hostvars[item].ec2_id }}" 
         ec2_elbs: "{{ infra_elb_name }}"
         region: "{{ region }}"
+        wait_timeout: 300
         state: present
       with_items: "{{ groups['tag_provision_node'] }}"
       when: node_type == "infra"
