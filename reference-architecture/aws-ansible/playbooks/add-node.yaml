@@ -58,7 +58,7 @@
         instance_id: "{{ hostvars[item].ec2_id }}" 
         ec2_elbs: "{{ infra_elb_name }}"
         region: "{{ region }}"
-        wait_timeout: 300
+        wait: no 
         state: present
       with_items: "{{ groups['tag_provision_node'] }}"
       when: node_type == "infra"
