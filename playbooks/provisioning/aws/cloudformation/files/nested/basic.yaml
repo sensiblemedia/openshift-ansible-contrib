@@ -1,0 +1,49 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: OpenShift Cluster Template
+Outputs:
+Parameters:
+  NamePrefix:
+    Type: String
+    Default: openshift_
+  VpcId:
+    Type: 'AWS::EC2::VPC::Id'
+  VpcTemplateUrl:
+    Type: String
+    Default: 'https://s3.amazonaws.com/openshift-cloudformation-templates/vpc.yaml'
+  NumSubnets:
+    Type: Number
+    MinValue: 1
+    MaxValue: 4
+    Default: 1
+  SubnetAvailabilityZones:
+    Type: 'List<AWS::EC2::AvailabilityZone::Name>'
+  SubnetCidrBlocks:
+    Type: CommaDelimitedList
+  VpcCidrBlock:
+    Type: String
+Conditions:
+  CreateVpc:
+    'Fn::Equals':
+    - ''
+    - Ref: VpcId
+Resources:
+  VpcStack:
+    Type: 'AWS::CloudFormation::Stack'
+    Condition: CreateVpc
+    TemplateUrl:
+      Ref: VpcTemplateUrl
+    Properties:
+      Parameters:
+        VpcName:
+          'Fn::Join':
+          - ''
+          - - Ref: NamePrefix
+            - _vpc
+        NumSubnets:
+          Ref: NumSubnets
+        SubnetAvailabilityZones:
+          Ref: SubnetAvailabilityZones
+        SubnetCidrBlocks:
+          Ref: SubnetCidrBlocks
+        VpcCidrBlock:
+          Ref: VpcCidrBlock
