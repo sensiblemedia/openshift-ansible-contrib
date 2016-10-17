@@ -180,17 +180,13 @@ Resources:
         CidrIp: 0.0.0.0/0
       SecurityGroupEgress:
       - IpProtocol: tcp
-        FromPort:
-          Ref: 80
-        ToPort:
-          Ref: 80
+        FromPort: 80
+        ToPort:: 80
         DestinationSecurityGroupId:
           Ref: RouterSG
       - IpProtocol: tcp
-        FromPort:
-          Ref: 443
-        ToPort:
-          Ref: 443
+        FromPort: 443
+        ToPort: 443
         DestinationSecurityGroupId:
           Ref: RouterSG
   RouterIngressHTTP:
