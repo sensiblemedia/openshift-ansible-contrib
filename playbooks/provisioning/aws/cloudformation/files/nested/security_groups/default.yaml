@@ -196,98 +196,98 @@ Resources:
   RouterIngressHTTP:
     Type: 'AWS::EC2::SecurityGroupIngress'
     Properties:
-    GroupId:
-      Ref: RouterSG
-    IpProtocol: tcp
-    FromPort: 80
-    ToPort: 80
-    SourceSecurityGroupId:
-      Ref: RouterElbSG
+      GroupId:
+        Ref: RouterSG
+      IpProtocol: tcp
+      FromPort: 80
+      ToPort: 80
+      SourceSecurityGroupId:
+        Ref: RouterElbSG
   RouterIngressHTTPS:
     Type: 'AWS::EC2::SecurityGroupIngress'
     Properties:
-    GroupId:
-      Ref: RouterSG
-    IpProtocol: tcp
-    FromPort: 443
-    ToPort: 443
-    SourceSecurityGroupId:
-      Ref: RouterElbSG
+      GroupId:
+        Ref: RouterSG
+      IpProtocol: tcp
+      FromPort: 443
+      ToPort: 443
+      SourceSecurityGroupId:
+        Ref: RouterElbSG
   NodeIngressNodeKubelet:
     Type: 'AWS::EC2::SecurityGroupIngress'
     Properties:
-    GroupId:
-      Ref: NodeSG
-    IpProtocol: tcp
-    FromPort: 10250
-    ToPort: 10250
-    SourceSecurityGroupId:
-      Ref: NodeSG
+      GroupId:
+        Ref: NodeSG
+      IpProtocol: tcp
+      FromPort: 10250
+      ToPort: 10250
+      SourceSecurityGroupId:
+        Ref: NodeSG
   NodeIngressNodeVXLAN:
     Type: 'AWS::EC2::SecurityGroupIngress'
     Properties:
-    GroupId:
-      Ref: NodeSG
-    IpProtocol: udp
-    FromPort: 4789
-    ToPort: 4789
-    SourceSecurityGroupId:
-      Ref: NodeSG
+      GroupId:
+        Ref: NodeSG
+      IpProtocol: udp
+      FromPort: 4789
+      ToPort: 4789
+      SourceSecurityGroupId:
+        Ref: NodeSG
   MasterIngressIntLB:
     Type: 'AWS::EC2::SecurityGroupIngress'
     Properties:
-    GroupId:
-      Ref: MasterSG
-    IpProtocol: tcp
-    FromPort:
-      Ref: MasterApiPort
-    ToPort:
-      Ref: MasterApiPort
-    SourceSecurityGroupId:
-      Ref: MasterIntLB
+      GroupId:
+        Ref: MasterSG
+      IpProtocol: tcp
+      FromPort:
+        Ref: MasterApiPort
+      ToPort:
+        Ref: MasterApiPort
+      SourceSecurityGroupId:
+        Ref: MasterIntLB
   MasterIngressExtLB:
     Type: 'AWS::EC2::SecurityGroupIngress'
     Properties:
-    GroupId:
-      Ref: MasterSG
-    IpProtocol: tcp
-    FromPort:
-      Ref: MasterApiPort
-    ToPort:
-      Ref: MasterApiPort
-    SourceSecurityGroupId:
-      Ref: MasterExtLB
+      GroupId:
+        Ref: MasterSG
+      IpProtocol: tcp
+      FromPort:
+        Ref: MasterApiPort
+      ToPort:
+        Ref: MasterApiPort
+      SourceSecurityGroupId:
+        Ref: MasterExtLB
   MasterIngressNodesApi:
     Type: 'AWS::EC2::SecurityGroupIngress'
     Properties:
-    GroupId:
-      Ref: MasterSG
-    IpProtocol: tcp
-    FromPort:
-      Ref: MasterApiPort
-    ToPort:
-      Ref: MasterApiPort
-    SourceSecurityGroupId:
-      Ref: NodeSG
+      GroupId:
+        Ref: MasterSG
+      IpProtocol: tcp
+      FromPort:
+        Ref: MasterApiPort
+      ToPort:
+        Ref: MasterApiPort
+      SourceSecurityGroupId:
+        Ref: NodeSG
   MasterIngressMasterApi:
     Type: 'AWS::EC2::SecurityGroupIngress'
     Properties:
-    GroupId:
-      Ref: MasterSG
-    IpProtocol: tcp
-    FromPort:
-      Ref: MasterApiPort
-    ToPort:
-      Ref: MasterApiPort
-    SourceSecurityGroupId:
-      Ref: MasterSG
+      GroupId:
+        Ref: MasterSG
+      IpProtocol: tcp
+      FromPort:
+        Ref: MasterApiPort
+      ToPort:
+        Ref: MasterApiPort
+      SourceSecurityGroupId:
+        Ref: MasterSG
   EtcdIngressEtcd:
     Type: 'AWS::EC2::SecurityGroupIngress'
     Properties:
-    GroupId:
-      Ref: EtcdSG
-    IpProtocol: tcp
-    FromPort: 2379
-    ToPort: 2380
-    SourceSecurityGroupId:
-      Ref: EtcdSG
+      GroupId:
+        Ref: EtcdSG
+      IpProtocol: tcp
+      FromPort: 2379
+      ToPort: 2380
+      SourceSecurityGroupId:
+        Ref: EtcdSG
