@@ -4,11 +4,16 @@ Parameters:
   NamePrefix:
     Type: String
     Default: openshift_
+  MasterApiPort:
+    Type: Number
+    Default: 443
+
+
   VpcId:
     Type: String
   VpcTemplateUrl:
     Type: String
-    Default: 'https://s3.amazonaws.com/openshift-cloudformation-templates/vpc.yaml'
+    Default: 'https://s3.amazonaws.com/openshift-cloudformation-templates/vpc/vpc.yaml'
   NumSubnets:
     Type: Number
     MinValue: 1
@@ -22,11 +27,41 @@ Parameters:
   VpcCidrBlock:
     Type: String
     Default: 172.18.0.0/16
+
+
+  MasterExtElbSecurityGroups:
+    Type: CommaDelimitedList
+  MasterIntElbSecurityGroups:
+    Type: CommaDelimitedList
+  RouterElbSecurityGroups:
+    Type: CommaDelimitedList
+  MasterSecurityGroups:
+    Type: CommaDelimtedList
+  EtcdSecurityGroups:
+    Type: CommaDelimtedList
+  NodeSecurityGroups:
+    Type: CommaDelimtedList
+  RouterSecurityGroups:
+    Type: CommaDelimtedList
+  MasterSecurityGroups:
+    Type: CommaDelimtedList
+  SecurityGroupTemplateUrl:
+    Type: String
+    Default: 'https://s3.amazonaws.com/openshift-cloudformation-templates/security-groups/default.yaml'
+
 Conditions:
   CreateVpc:
     'Fn::Equals':
     - ''
     - Ref: VpcId
+  CreateSecurityGroups:
+    'Fn::Or':
+    - 'Fn::Equals':
+      - ''
+      - Ref: MasterSecurityGroups
+    - 'Fn::Equals':
+      - ''
+      - Ref: NodeSecurityGroups
 Resources:
   VpcStack:
     Type: 'AWS::CloudFormation::Stack'
@@ -52,3 +87,19 @@ Resources:
           - Ref: SubnetCidrBlocks
         VpcCidrBlock:
           Ref: VpcCidrBlock
+  SGStack:
+    Type: 'AWS::CloudFormation::Stack'
+    Condition: CreateSecurityGroups
+    Properties:
+      TemplateURL:
+        Ref: SecurityGroupTemplateUrl
+      Parameters:
+        VpcId:
+          'Fn::If':
+          - CreateVpc
+          - 'Fn::GetAtt':
+            - Ref: VpcStack
+            - Output.VpcId
+          - Ref: VpcId
+        MasterApiPort:
+          Ref: MasterApiPort
