@@ -1,12 +1,11 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: OpenShift Cluster Template
-Outputs:
 Parameters:
   NamePrefix:
     Type: String
     Default: openshift_
   VpcId:
-    Type: 'AWS::EC2::VPC::Id'
+    Type: String
   VpcTemplateUrl:
     Type: String
     Default: 'https://s3.amazonaws.com/openshift-cloudformation-templates/vpc.yaml'
@@ -19,8 +18,10 @@ Parameters:
     Type: 'List<AWS::EC2::AvailabilityZone::Name>'
   SubnetCidrBlocks:
     Type: CommaDelimitedList
+    Default: '172.18.0.0/24,172.18.1.0/24,172.18.2.0/24,172.18.3.0/24'
   VpcCidrBlock:
     Type: String
+    Default: 172.18.0.0/16
 Conditions:
   CreateVpc:
     'Fn::Equals':
@@ -30,9 +31,9 @@ Resources:
   VpcStack:
     Type: 'AWS::CloudFormation::Stack'
     Condition: CreateVpc
-    TemplateUrl:
-      Ref: VpcTemplateUrl
     Properties:
+      TemplateURL:
+        Ref: VpcTemplateUrl
       Parameters:
         VpcName:
           'Fn::Join':
@@ -42,8 +43,12 @@ Resources:
         NumSubnets:
           Ref: NumSubnets
         SubnetAvailabilityZones:
-          Ref: SubnetAvailabilityZones
+          'Fn::Join':
+          - ','
+          - Ref: SubnetAvailabilityZones
         SubnetCidrBlocks:
-          Ref: SubnetCidrBlocks
+          'Fn::Join':
+          - ','
+          - Ref: SubnetCidrBlocks
         VpcCidrBlock:
           Ref: VpcCidrBlock
