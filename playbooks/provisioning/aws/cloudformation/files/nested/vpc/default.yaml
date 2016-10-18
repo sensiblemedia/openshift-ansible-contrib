@@ -23,6 +23,31 @@ Outputs:
           - CreateSubnet4
           - Ref: Subnet4
           - Ref: 'AWS::NoValue'
+  VpcSubnet1:
+    Description: VPC Subnet01
+    Value:
+      Ref: Subnet1
+  VpcSubnet2:
+    Value:
+      'Fn::If':
+      - CreateSubnet2
+      - Ref: Subnet2
+      - Ref: Subnet1
+  VpcSubnet3:
+    Value:
+      'Fn::If':
+      - CreateSubnet3
+      - Ref: Subnet3
+      - Ref: Subnet1
+  VpcSubnet4:
+    Value:
+      'Fn::If':
+      - CreateSubnet4
+      - Ref: Subnet4
+      - 'Fn::If':
+        - CreateSubnet2
+        - Ref: Subnet2
+        - Ref: Subnet1
 Parameters:
   VpcName:
     Type: String

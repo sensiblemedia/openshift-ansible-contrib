@@ -7,6 +7,8 @@ Parameters:
   MasterApiPort:
     Type: Number
     Default: 443
+  KeyName:
+    Type: 'AWS::EC2::KeyPair::KeyName'
 
 
   VpcId:
@@ -56,7 +58,10 @@ Parameters:
     Type: String
     Default: 'https://s3.amazonaws.com/openshift-cloudformation-templates/iam-profiles/default.yaml'
 
-
+  MasterUserData:
+    Type: String
+  MasterInstanceSubnets:
+    Type: CommaDelimitedList
   ControlPlaneTemplateUrl:
     Type: String
     Default: 'https://s3.amazonaws.com/openshift-cloudformation-templates/control-plane/default.yaml'
@@ -168,3 +173,65 @@ Resources:
     Properties:
       TemplateURL:
         Ref: ControlPlaneTemplateUrl
+      Parameters:
+        MasterSGs:
+          'Fn::If':
+          - CreateSecurityGroups
+          - 'Fn::GetAtt':
+            - SGStack
+            - Outputs.MasterSecurityGroups
+          - Ref: MasterSecurityGroups
+        MasterExtElbSGs:
+          'Fn::If':
+          - CreateSecurityGroups
+          - 'Fn::GetAtt':
+            - SGStack
+            - Outputs.MasterExtElbSecurityGroups
+          - Ref: MasterExtElbSecurityGroups
+        MasterIntElbSGs:
+          'Fn::If':
+          - CreateSecurityGroups
+          - 'Fn::GetAtt':
+            - SGStack
+            - Outputs.MasterIntElbSecurityGroups
+          - Ref: MasterIntElbSecurityGroups
+        MasterInstanceProfile:
+          'Fn::If':
+          - CreateIAMProfiles
+          - 'Fn::GetAtt':
+            - IAMStack
+            - Outputs.MasterInstanceProfile
+          - Ref: MasterInstanceProfile
+        MasterApiPort:
+          Ref: MasterApiPort
+        KeyName:
+          Ref: KeyName
+        MasterUserData:
+          Ref: MasterUserData
+        Master01Subnet:
+          'Fn::If':
+          - CreateVpc
+          - 'Fn::GetAtt':
+            - VpcStack
+            - Outputs.VpcSubnet1
+          - 'Fn::Select':
+            - 0
+            - Ref: MasterInstanceSubnets
+        Master02Subnet:
+          'Fn::If':
+          - CreateVpc
+          - 'Fn::GetAtt':
+            - VpcStack
+            - Outputs.VpcSubnet2
+          - 'Fn::Select':
+            - 1
+            - Ref: MasterInstanceSubnets
+        Master03Subnet:
+          'Fn::If':
+          - CreateVpc
+          - 'Fn::GetAtt':
+            - VpcStack
+            - Outputs.VpcSubnet3
+          - 'Fn::Select':
+            - 2
+            - Ref: MasterInstanceSubnets
