@@ -1,0 +1,39 @@
+# vim: set ft=ansible:
+---
+- name: 'Bootstrapping or Refreshing Environment'
+  hosts: localhost
+  connection: local
+  sudo: no
+  gather_facts: no
+  vars:
+    vpc_subnet_azs: "{{ lookup('ec2_zones_by_region', ec2_region) }}"
+    cluster_id: test
+    env_id: test
+    stack_name: openshift-{{ cluster_id }}-{{ env_id }}
+  tasks:
+  - name: Launch the CloudFormation Template
+    cloudformation:
+      region: "{{ ec2_region }}"
+      stack_name: "{{ stack_name }}"
+      state: present
+      tags:
+        environment: "{{ env_id }}"
+        clusterid: "{{ cluster_id }}"
+      template: files/nested/basic.yaml
+      template_parameters:
+        NamePrefix: "{{ stack_name }}"
+        NumSubnets: "{{ vpc_subnet_azs | length }}"
+        SubnetAvailabilityZones: "{{ vpc_subnet_azs }}"
+    register: cf_output
+
+  - debug: var=cf_output
+  - debug: var=groups
+  - debug:
+      msg: "hosts: {{ groups['tag_' ~ cluster_id] }}"
+
+  - meta: refresh_inventory
+
+  - debug: var=groups
+  - debug:
+      msg: "hosts: {{ groups['tag_' ~ cluster_id] }}"
+
