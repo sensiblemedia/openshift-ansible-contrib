@@ -78,10 +78,8 @@ Resources:
         Ref: VpcId
       SecurityGroupIngress:
       - IpProtocol: tcp
-        FromPort:
-          Ref: 2379
-        ToPort:
-          Ref: 2379
+        FromPort: 2379
+        ToPort: 2379
         SourceSecurityGroupId:
           Ref: MasterSG
   NodeSG:
@@ -94,10 +92,8 @@ Resources:
         Ref: VpcId
       SecurityGroupIngress:
       - IpProtocol: tcp
-        FromPort:
-          Ref: 10250
-        ToPort:
-          Ref: 10250
+        FromPort: 10250
+        ToPort: 10250
         SourceSecurityGroupId:
           Ref: MasterSG
   RouterSG:
@@ -181,7 +177,7 @@ Resources:
       SecurityGroupEgress:
       - IpProtocol: tcp
         FromPort: 80
-        ToPort:: 80
+        ToPort: 80
         DestinationSecurityGroupId:
           Ref: RouterSG
       - IpProtocol: tcp
@@ -240,7 +236,7 @@ Resources:
       ToPort:
         Ref: MasterApiPort
       SourceSecurityGroupId:
-        Ref: MasterIntLB
+        Ref: MasterIntElbSG
   MasterIngressExtLB:
     Type: 'AWS::EC2::SecurityGroupIngress'
     Properties:
@@ -252,7 +248,7 @@ Resources:
       ToPort:
         Ref: MasterApiPort
       SourceSecurityGroupId:
-        Ref: MasterExtLB
+        Ref: MasterExtElbSG
   MasterIngressNodesApi:
     Type: 'AWS::EC2::SecurityGroupIngress'
     Properties:
