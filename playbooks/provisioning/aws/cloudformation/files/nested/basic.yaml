@@ -49,6 +49,16 @@ Parameters:
     Type: String
     Default: 'https://s3.amazonaws.com/openshift-cloudformation-templates/security-groups/default.yaml'
 
+
+  MasterInstanceProfile:
+    Type: String
+  NodeInstanceProfile:
+    Type: String
+  IamInstanceProfileTemplateUrl:
+    Type: String
+    Default: 'https://s3.amazonaws.com/openshift-cloudformation-templates/iam-policy/iam.yaml'
+
+
 Conditions:
   CreateVpc:
     'Fn::Equals':
@@ -66,6 +76,15 @@ Conditions:
       - 'Fn::Join':
         - ','
         - Ref: NodeSecurityGroups
+  CreateIAMProfiles:
+    'Fn::Or':
+    - 'Fn::Equals':
+      - ''
+      - Ref: MasterInstanceProfile
+    - 'Fn::Equals':
+      - ''
+      - Ref: NodeInstanceProfile
+
 Resources:
   VpcStack:
     Type: 'AWS::CloudFormation::Stack'
@@ -107,3 +126,11 @@ Resources:
           - Ref: VpcId
         MasterApiPort:
           Ref: MasterApiPort
+
+  IAMStack:
+    Type: 'AWS::CloudFormation::Stack'
+    Condition: CreateIAMProfiles
+    Properties:
+      TemplateURL:
+        Ref: IamInstanceProfileTemplateUrl
+
