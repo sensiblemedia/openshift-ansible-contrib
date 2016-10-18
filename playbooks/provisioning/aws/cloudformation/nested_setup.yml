@@ -6,34 +6,47 @@
   sudo: no
   gather_facts: no
   vars:
-    vpc_subnet_azs: "{{ lookup('ec2_zones_by_region', ec2_region) }}"
-    cluster_id: test
-    env_id: test
-    stack_name: openshift-{{ cluster_id }}-{{ env_id }}
+    openshift_provisioning_cluster_id: test
+    openshift_provisioning_env_id: test
+    openshift_provisioning_aws_region: us-east-1
+    openshift_provisioning_aws_subnet_azs: "{{ lookup('ec2_zones_by_region', openshift_provisioning_aws_region) }}"
+    openshift_provisioning_aws_stack_name: openshift-{{ openshift_provisioning_cluster_id }}-{{ openshift_provisioning_env_id }}
   tasks:
+  - debug:
+      msg: "subnet_list: {{ openshift_provisioning_aws_subnet_azs.split(',') }}"
   - name: Launch the CloudFormation Template
     cloudformation:
-      region: "{{ ec2_region }}"
-      stack_name: "{{ stack_name }}"
+      region: "{{ openshift_provisioning_aws_region }}"
+      stack_name: "{{ openshift_provisioning_aws_stack_name }}"
       state: present
       tags:
-        environment: "{{ env_id }}"
-        clusterid: "{{ cluster_id }}"
-      template: files/nested/basic.yaml
+        environment: "{{ openshift_provisioning_env_id }}"
+        clusterid: "{{ openshift_provisioning_cluster_id }}"
+      template: files/nested/three_master_infra_asg_node_asg_no_bastion.yaml
       template_parameters:
-        NamePrefix: "{{ stack_name }}"
-        NumSubnets: "{{ vpc_subnet_azs | length }}"
-        SubnetAvailabilityZones: "{{ vpc_subnet_azs }}"
+        NamePrefix: "{{ openshift_provisioning_aws_stack_name }}"
+        NumSubnets: "{{ openshift_provisioning_aws_subnet_azs.split(',') | length }}"
+        SubnetAvailabilityZones: "{{ openshift_provisioning_aws_subnet_azs }}"
+        MasterSecurityGroups: "{{ openshift_provisioning_aws_master_security_groups | default('') }}"
+        NodeSecurityGroups: "{{ openshift_provisioning_aws_node_security_groups | default('') }}"
+        EtcdSecurityGroups: "{{ openshift_provisioning_aws_etcd_security_groups | default('') }}"
+        RouterSecurityGroups: "{{ openshift_provisioning_aws_router_security_groups | default('') }}"
+        RouterElbSecurityGroups: "{{ openshift_provisioning_aws_router_elb_security_groups | default('') }}"
+        MasterExtElbSecurityGroups: "{{ openshift_provisioning_aws_master_ext_elb_security_groups | default('') }}"
+        MasterIntElbSecurityGroups: "{{ openshift_provisioning_aws_master_int_elb_security_groups | default('') }}"
+        MasterInstanceProfile: "{{ openshift_provisioning_aws_master_instance_profile | default('') }}"
+        NodeInstanceProfile: "{{ openshift_provisioning_aws_node_instance_profile | default('') }}"
+        VpcId: "{{ openshift_provisioning_aws_vpc_id | default('') }}"
     register: cf_output
 
   - debug: var=cf_output
   - debug: var=groups
   - debug:
-      msg: "hosts: {{ groups['tag_' ~ cluster_id] }}"
+      msg: "hosts: {{ groups['tag_' ~ openshift_provisioning_cluster_id] | default([]) }}"
 
   - meta: refresh_inventory
 
   - debug: var=groups
   - debug:
-      msg: "hosts: {{ groups['tag_' ~ cluster_id] }}"
+      msg: "hosts: {{ groups['tag_' ~ openshift_provisioning_cluster_id] | default([]) }}"
 

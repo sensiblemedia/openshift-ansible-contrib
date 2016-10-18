@@ -43,8 +43,6 @@ Parameters:
     Type: CommaDelimitedList
   RouterSecurityGroups:
     Type: CommaDelimitedList
-  MasterSecurityGroups:
-    Type: CommaDelimitedList
   SecurityGroupTemplateUrl:
     Type: String
     Default: 'https://s3.amazonaws.com/openshift-cloudformation-templates/security-groups/default.yaml'
@@ -76,6 +74,32 @@ Conditions:
       - 'Fn::Join':
         - ','
         - Ref: NodeSecurityGroups
+    - 'Fn::Equals':
+      - ''
+      - 'Fn::Join':
+        - ','
+        - Ref: RouterSecurityGroups
+    - 'Fn::Equals':
+      - ''
+      - 'Fn::Join':
+        - ','
+        - Ref: EtcdSecurityGroups
+    - 'Fn::Equals':
+      - ''
+      - 'Fn::Join':
+        - ','
+        - Ref: RouterElbSecurityGroups
+    - 'Fn::Equals':
+      - ''
+      - 'Fn::Join':
+        - ','
+        - Ref: MasterExtElbSecurityGroups
+    - 'Fn::Equals':
+      - ''
+      - 'Fn::Join':
+        - ','
+        - Ref: MasterIntElbSecurityGroups
+
   CreateIAMProfiles:
     'Fn::Or':
     - 'Fn::Equals':
