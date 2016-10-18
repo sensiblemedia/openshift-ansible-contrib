@@ -13,7 +13,7 @@ Parameters:
     Type: String
   VpcTemplateUrl:
     Type: String
-    Default: 'https://s3.amazonaws.com/openshift-cloudformation-templates/vpc/vpc.yaml'
+    Default: 'https://s3.amazonaws.com/openshift-cloudformation-templates/vpc/default.yaml'
   NumSubnets:
     Type: Number
     MinValue: 1
@@ -54,8 +54,12 @@ Parameters:
     Type: String
   IamInstanceProfileTemplateUrl:
     Type: String
-    Default: 'https://s3.amazonaws.com/openshift-cloudformation-templates/iam-policy/iam.yaml'
+    Default: 'https://s3.amazonaws.com/openshift-cloudformation-templates/iam-profiles/default.yaml'
 
+
+  ControlPlaneTemplateUrl:
+    Type: String
+    Default: 'https://s3.amazonaws.com/openshift-cloudformation-templates/control-plane/default.yaml'
 
 Conditions:
   CreateVpc:
@@ -158,3 +162,9 @@ Resources:
       TemplateURL:
         Ref: IamInstanceProfileTemplateUrl
 
+  ControlPlaneStack:
+    Type: 'AWS::CloudFormation::Stack'
+    Condition: CreateIAMProfiles
+    Properties:
+      TemplateURL:
+        Ref: ControlPlaneTemplateUrl
