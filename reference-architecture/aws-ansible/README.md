@@ -100,7 +100,7 @@ If the SSH key that you plan on using in AWS already exists then perform the fol
 ```
 
 ### Existing AWS Environment (Brownfield)
-If the installing OpenShift Container Platform or OpenShift Origin into an existing AWS VPC perform the following. The script will prompt for vpc and subnet IDs.  The Brownfield deployment can also skip the creation of a Bastion server if one already exists. For mappings of security groups make sure the bastion security group is named bastion-sg.
+If installing OpenShift Container Platform or OpenShift Origin into an existing AWS VPC perform the following. The script will prompt for vpc and subnet IDs.  The Brownfield deployment can also skip the creation of a Bastion server if one already exists. For mappings of security groups make sure the bastion security group is named bastion-sg.
 
 **OpenShift Container Platform**
 ```
