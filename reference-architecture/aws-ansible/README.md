@@ -1,5 +1,5 @@
 # The Reference Architecture OpenShift on Amazon Web Services
-This repository contains the scripts used to deploy an OpenShift Container Platform or OpenShift Origin environment based off of the Reference Architecture Guide for OCP 3.3 or Origin 1.3 on Amazon Web Services.
+This repository contains the scripts used to deploy an OpenShift Container Platform or OpenShift Origin environment based off of the Reference Architecture Guide for OCP 3.3 on Amazon Web Services.
 
 ## Overview
 The repository contains Ansible playbooks which deploy 3 Masters in different availability zones, 2 infrastructure nodes and 2 applcation nodes. The Infrastrucute and Application nodes are split between two availbility zones.  The playbooks deploy a Docker registry and scale the router to the number of Infrastruture nodes.
@@ -25,7 +25,7 @@ $ yum -y install atomic-openshift-utils \
                  python-httplib2
 ```
 
-### Deploying Origin
+### Deploying OpenShift Origin
 The playbooks in the repository also have the ability to configure CentOS or RHEL instances to prepare for the installation of Origin. Due to the OpenShift playbooks not being available in RPM format outside of a OpenShift Container Platform subscription the openshift-ansible repository must be cloned.
 
 ```
@@ -97,6 +97,7 @@ If the SSH key that you plan on using in AWS already exists then perform the fol
 **OpenShift Origin**
 ```
 ./ose-on-aws.py --keypair=OSE-key --public-hosted-zone=sysdeseng.com --deployment-type=origin --ami=ami-6d1c2007
+```
 
 ### Existing AWS Environment (Brownfield)
 If the installing OpenShift Container Platform or OpenShift Origin into an existing AWS VPC perform the following. The script will prompt for vpc and subnet IDs.  The Brownfield deployment can also skip the creation of a Bastion server if one already exists. For mappings of security groups make sure the bastion security group is named bastion-sg.
