@@ -18,7 +18,7 @@ from copy import deepcopy
               show_default=True)
 
 ### AWS/EC2 options
-@click.option('--stack-name', default='OpenShift-Infra', help='CloudFormation stack name',
+@click.option('--stack-name', default='openshift-infra', help='CloudFormation stack name',
               show_default=True)
 @click.option('--region', default='us-east-1', help='ec2 region',
               show_default=True)

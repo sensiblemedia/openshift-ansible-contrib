@@ -2,6 +2,7 @@
 - name: Get cfn stack outputs
   cloudformation_facts:
     stack_name: "{{ stack_name }}"
+    region: "{{ region }}"
   register: stack
 
 - name: Set s3_userid fact
