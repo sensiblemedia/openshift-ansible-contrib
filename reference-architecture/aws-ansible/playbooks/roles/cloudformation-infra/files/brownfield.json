@@ -739,6 +739,9 @@
           "Tags": [
             { "Key": "Name",
               "Value": {"Fn::Join": [".", ["bastion",{"Ref": "Route53HostedZone"}]]}
+            },
+            { "Key": "stack-name",
+              "Value": {"Ref": "AWS::StackName"}
             }
           ],
           "BlockDeviceMappings" : [
@@ -783,6 +786,9 @@
             },
             { "Key": "openshift-role",
               "Value": "master"
+            },
+            { "Key": "stack-name",
+              "Value": {"Ref": "AWS::StackName"}
             }
           ],
           "BlockDeviceMappings" : [
@@ -837,6 +843,9 @@
             },
             { "Key": "openshift-role",
               "Value": "master"
+            },
+            { "Key": "stack-name",
+              "Value": {"Ref": "AWS::StackName"}
             }
           ],
           "BlockDeviceMappings" : [
@@ -891,6 +900,9 @@
             },
             { "Key": "openshift-role",
               "Value": "master"
+            },
+            { "Key": "stack-name",
+              "Value": {"Ref": "AWS::StackName"}
             }
           ],
           "BlockDeviceMappings" : [
@@ -945,6 +957,9 @@
             },
             { "Key": "openshift-role",
               "Value": "infra"
+            },
+            { "Key": "stack-name",
+              "Value": {"Ref": "AWS::StackName"}
             }
           ],
           "BlockDeviceMappings" : [
@@ -991,6 +1006,9 @@
             },
             { "Key": "openshift-role",
               "Value": "infra"
+            },
+            { "Key": "stack-name",
+              "Value": {"Ref": "AWS::StackName"}
             }
           ],
           "BlockDeviceMappings" : [
@@ -1037,6 +1055,9 @@
             },
             { "Key": "openshift-role",
               "Value": "app"
+            },
+            { "Key": "stack-name",
+              "Value": {"Ref": "AWS::StackName"}
             }
           ],
           "BlockDeviceMappings" : [
@@ -1083,6 +1104,9 @@
             },
             { "Key": "openshift-role",
               "Value": "app"
+            },
+            { "Key": "stack-name",
+              "Value": {"Ref": "AWS::StackName"}
             }
           ],
           "BlockDeviceMappings" : [

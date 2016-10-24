@@ -930,12 +930,15 @@
           "ImageId" : {"Ref": "AmiId"},
           "UserData": {"Ref": "BastionUserData"},
           "KeyName" : {"Ref": "KeyName"},
-	      "InstanceType": {"Ref": "BastionInstanceType"},
-		  "SecurityGroupIds": [{ "Fn::GetAtt" : ["BastionSg", "GroupId"] }],
+	  "InstanceType": {"Ref": "BastionInstanceType"},
+          "SecurityGroupIds": [{ "Fn::GetAtt" : ["BastionSg", "GroupId"] }],
           "SubnetId" : {"Ref": "PublicSubnet1"},
           "Tags": [
             { "Key": "Name",
               "Value": {"Fn::Join": [".", ["bastion",{"Ref": "PublicHostedZone"}]]}
+            },
+            { "Key": "stack-name",
+              "Value": {"Ref": "AWS::StackName"}
             }
           ],
           "BlockDeviceMappings" : [
@@ -981,6 +984,9 @@
             },
             { "Key": "openshift-role",
               "Value": "master"
+            },
+            { "Key": "stack-name",
+              "Value": {"Ref": "AWS::StackName"}
             }
           ],
           "BlockDeviceMappings" : [
@@ -1036,6 +1042,9 @@
             },
             { "Key": "openshift-role",
               "Value": "master"
+            },
+            { "Key": "stack-name",
+              "Value": {"Ref": "AWS::StackName"}
             }
           ],
           "BlockDeviceMappings" : [
@@ -1091,6 +1100,9 @@
             },
             { "Key": "openshift-role",
               "Value": "master"
+            },
+            { "Key": "stack-name",
+              "Value": {"Ref": "AWS::StackName"}
             }
           ],
           "BlockDeviceMappings" : [
@@ -1146,6 +1158,9 @@
             },
             { "Key": "openshift-role",
               "Value": "infra"
+            },
+            { "Key": "stack-name",
+              "Value": {"Ref": "AWS::StackName"}
             }
           ],
           "BlockDeviceMappings" : [
@@ -1193,6 +1208,9 @@
             },
             { "Key": "openshift-role",
               "Value": "infra"
+            },
+            { "Key": "stack-name",
+              "Value": {"Ref": "AWS::StackName"}
             }
           ],
           "BlockDeviceMappings" : [
@@ -1240,6 +1258,9 @@
             },
             { "Key": "openshift-role",
               "Value": "app"
+            },
+            { "Key": "stack-name",
+              "Value": {"Ref": "AWS::StackName"}
             }
           ],
           "BlockDeviceMappings" : [
@@ -1287,6 +1308,9 @@
             },
             { "Key": "openshift-role",
               "Value": "app"
+            },
+            { "Key": "stack-name",
+              "Value": {"Ref": "AWS::StackName"}
             }
           ],
           "BlockDeviceMappings" : [

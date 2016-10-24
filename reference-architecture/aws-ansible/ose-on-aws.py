@@ -8,6 +8,8 @@ import sys
 @click.command()
 
 ### Cluster options
+@click.option('--stack-name', default='openshift-infra', help='Cloudformation stack name. Must be unique',
+              show_default=True)
 @click.option('--console-port', default='443', type=click.IntRange(1,65535), help='OpenShift web console port',
               show_default=True)
 @click.option('--deployment-type', default='openshift-enterprise', help='OpenShift deployment type',
@@ -21,6 +23,8 @@ import sys
 @click.option('--master-instance-type', default='m4.large', help='ec2 instance type',
               show_default=True)
 @click.option('--node-instance-type', default='t2.medium', help='ec2 instance type',
+              show_default=True)
+@click.option('--app-instance-type', default='t2.medium', help='ec2 instance type',
               show_default=True)
 @click.option('--bastion-instance-type', default='t2.micro', help='ec2 instance type',
               show_default=True)
@@ -71,10 +75,12 @@ import sys
 @click.option('-v', '--verbose', count=True)
 
 def launch_refarch_env(region=None,
+                    stack_name=None,
                     ami=None,
                     no_confirm=False,
                     master_instance_type=None,
                     node_instance_type=None,
+                    app_instance_type=None,
                     bastion_instance_type=None,
                     keypair=None,
                     create_key=None,
@@ -148,10 +154,12 @@ def launch_refarch_env(region=None,
 
   # Display information to the user about their choices
   click.echo('Configured values:')
+  click.echo('\tstack_name: %s' % stack_name)
   click.echo('\tami: %s' % ami)
   click.echo('\tregion: %s' % region)
   click.echo('\tmaster_instance_type: %s' % master_instance_type)
   click.echo('\tnode_instance_type: %s' % node_instance_type)
+  click.echo('\tapp_instance_type: %s' % app_instance_type)
   click.echo('\tbastion_instance_type: %s' % bastion_instance_type)
   click.echo('\tkeypair: %s' % keypair)
   click.echo('\tcreate_key: %s' % create_key)
@@ -200,6 +208,7 @@ def launch_refarch_env(region=None,
     os.system(command)
 
     command='ansible-playbook -i inventory/aws/hosts -e \'region=%s \
+    stack_name=%s \
     ami=%s \
     keypair=%s \
     create_key=%s \
@@ -216,6 +225,7 @@ def launch_refarch_env(region=None,
     bastion_sg=%s \
     master_instance_type=%s \
     node_instance_type=%s \
+    app_instance_type=%s \
     bastion_instance_type=%s \
     public_hosted_zone=%s \
     wildcard_zone=%s \
@@ -225,6 +235,7 @@ def launch_refarch_env(region=None,
     rhsm_password=%s \
     rhsm_pool=%s \
     containerized=%s \' %s' % (region,
+                    stack_name,
                     ami,
                     keypair,
                     create_key,
@@ -241,6 +252,7 @@ def launch_refarch_env(region=None,
                     bastion_sg,
                     master_instance_type,
                     node_instance_type,
+                    app_instance_type,
                     bastion_instance_type,
                     public_hosted_zone,
                     wildcard_zone,

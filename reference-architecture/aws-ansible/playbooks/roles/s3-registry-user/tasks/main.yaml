@@ -2,7 +2,7 @@
 - name: Create S3 OpenShift registry user
   iam:
     iam_type: user
-    name: "{{ s3_username }}"
+    name: "{{ s3_username }}-{{ stack_name }}"
     state: present
     access_key_state: create
   register: s3user

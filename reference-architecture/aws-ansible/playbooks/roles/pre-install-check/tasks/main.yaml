@@ -1,5 +1,4 @@
 ---
-
 - name: Get current Ansible version on local host
   command: command ansible --version
   register: local_ansible_version
@@ -7,3 +6,14 @@
     that:
       - "'ansible 2.2' in local_ansible_version.stdout"         
     msg: "You need Ansible version 2.2.0+"
+
+- name: Validate that cloudformation stack does not already exist
+  cloudformation_facts:
+    stack_name: "{{ stack_name }}"
+    region: "{{ region }}"
+  register: cloud_check
+  ignore_errors: true
+
+- name: Fail if stack already exists
+  fail: msg="Cloudformation {{ stack_name }} already exists"
+  when: cloud_check.failed is not defined
