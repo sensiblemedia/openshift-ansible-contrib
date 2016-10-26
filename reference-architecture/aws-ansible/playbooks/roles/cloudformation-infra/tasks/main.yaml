@@ -156,7 +156,7 @@
 
 - name: Add App Node 
   cloudformation:
-    stack_name: "{{ shortname }}"
+    stack_name: "{{ stack_name }}-{{ shortname }}"
     state: "present"
     region: "{{ region }}"
     template: "roles/cloudformation-infra/files/add-node.json"
@@ -181,7 +181,7 @@
 
 - name: Add Infra Node 
   cloudformation:
-    stack_name: "{{ shortname }}"
+    stack_name: "{{ stack_name }}-{{ shortname }}"
     state: "present"
     region: "{{ region }}"
     template: "roles/cloudformation-infra/files/add-infra-node.json"
