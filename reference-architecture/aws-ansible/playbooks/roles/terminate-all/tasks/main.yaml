@@ -1,18 +1,4 @@
 ---
-- name: Remove policy used for user
-  iam_policy:
-    iam_name: "{{ s3_username }}-{{ stack_name }}"
-    iam_type: user
-    policy_name: S3FullAccess
-    state: absent
-    region: "{{ region }}"
-  ignore_errors: true
-- name: Remove S3 OpenShift registry user
-  iam:
-    iam_type: user
-    name: "{{ s3_username }}-{{ stack_name }}"
-    state: absent
-  ignore_errors: true
 - name: Remove Cloudformation
   cloudformation:
     stack_name: "{{ stack_name }}"
@@ -34,12 +20,3 @@
   with_items:
     - "{{ vols.volumes }}"
   when: ci
-
-- name: set the name of the bucket
-  set_fact: s3_bucket="{{ public-hosted-zone }}-openshift-registry-{{ stack_name}}"
-
-- name: Remove S3 bucket
-  s3:
-    bucket: "{{ s3_bucket }}"
-    mode: absent 
-    region: "{{ region }}"
