@@ -34,3 +34,12 @@
   with_items:
     - "{{ vols.volumes }}"
   when: ci
+
+- name: set the name of the bucket
+  set_fact: s3_bucket="{{ public-hosted-zone }}-openshift-registry-{{ stack_name}}"
+
+- name: Remove S3 bucket
+  s3:
+    bucket: "{{ s3_bucket }}"
+    mode: absent 
+    region: "{{ region }}"

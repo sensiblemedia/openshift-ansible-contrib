@@ -2,9 +2,6 @@
 - name: set the name of the bucket
   set_fact: s3_bucket="{{ public-hosted-zone }}-openshift-registry-{{ stack_name}}"
 
-- name: debug
-  debug: var=s3_bucket 
-
 - name: Create S3 bucket
   s3:
     bucket: "{{ s3_bucket }}"

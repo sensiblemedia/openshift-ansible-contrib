@@ -46,7 +46,7 @@
   when:
     - hostvars[item]['ec2_tag_aws_cloudformation_stack_name'] == "{{ stack_name }}"
 
-- name: Add app instances to host group
+- name: Add new node instances to host group
   add_host:
     name: "{{ hostvars[item].ec2_tag_Name }}" 
     groups: new_nodes
