@@ -8,6 +8,9 @@
       "Type": "String",
       "Default": "ose-on-aws"
     },
+    "S3BucketName": {
+      "Type": "String"
+    },
     "MasterApiPort": {
       "Type": "Number"
     },
@@ -835,6 +838,12 @@
         "Roles": [ { "Ref": "NodePolicy" } ]
       }
     },
+    "RegistryBucket": {
+    "Type": "AWS::S3::Bucket",
+    "Properties" : {
+       "BucketName": { "Ref": "S3BucketName"}
+                   }
+     },
     "Route53Records": {
       "Type": "AWS::Route53::RecordSetGroup",
       "DependsOn": [

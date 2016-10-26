@@ -69,6 +69,8 @@ import sys
               show_default=True)
 @click.option('--containerized', default='False', help='Containerized installation of OpenShift',
               show_default=True)
+@click.option('--s3-bucket-name', help='Bucket name for S3 for registry')
+@click.option('--s3-username', help='S3 user for registry access')
 @click.option('--no-confirm', is_flag=True,
               help='Skip confirmation prompt')
 @click.help_option('--help', '-h')
@@ -103,11 +105,20 @@ def launch_refarch_env(region=None,
                     rhsm_password=None,
                     rhsm_pool=None,
                     containerized=None,
+                    s3_bucket_name=None,
+                    s3_username=None,
                     verbose=0):
 
   # Need to prompt for the R53 zone:
   if public_hosted_zone is None:
     public_hosted_zone = click.prompt('Hosted DNS zone for accessing the environment')
+
+
+  if s3_bucket_name is None:
+    s3_bucket_name = stack_name + '-ocp-registry-' + public_hosted_zone.split('.')[0]
+
+  if s3_username is None:
+    s3_username = stack_name + '-s3-openshift-user'
 
   # Create ssh key pair in AWS if none is specified
   if create_key in 'yes' and key_path in 'no':
@@ -183,6 +194,8 @@ def launch_refarch_env(region=None,
   click.echo('\trhsm_password: *******')
   click.echo('\trhsm_pool: %s' % rhsm_pool)
   click.echo('\tcontainerized: %s' % containerized)
+  click.echo('\ts3_bucket_name: %s' % s3_bucket_name)
+  click.echo('\ts3_username: %s' % s3_username)
   click.echo("")
 
   if not no_confirm:
@@ -234,7 +247,9 @@ def launch_refarch_env(region=None,
     rhsm_user=%s \
     rhsm_password=%s \
     rhsm_pool=%s \
-    containerized=%s \' %s' % (region,
+    containerized=%s \
+    s3_bucket_name=%s \
+    s3_username=%s \' %s' % (region,
                     stack_name,
                     ami,
                     keypair,
@@ -262,6 +277,8 @@ def launch_refarch_env(region=None,
                     rhsm_password,
                     rhsm_pool,
                     containerized,
+                    s3_bucket_name,
+                    s3_username,
                     playbook)
 
     if verbose > 0:

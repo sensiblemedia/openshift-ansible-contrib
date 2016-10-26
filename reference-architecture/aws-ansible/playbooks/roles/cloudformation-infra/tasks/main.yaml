@@ -46,6 +46,8 @@
       NodeRootVolType: gp2
       NodeDockerVolSize: "{{ docker_storage }}"
       NodeDockerVolType: gp2
+      S3BucketName: "{{ s3_bucket_name }}"
+      S3User: "{{ s3_username }}"
   when: create_vpc == "yes"
 
 - name: Create Brownfield Infrastructure
@@ -97,6 +99,8 @@
       NodeRootVolType: gp2
       NodeDockerVolSize: "{{ docker_storage }}"
       NodeDockerVolType: gp2
+      S3BucketName: "{{ s3_bucket_name }}"
+      S3User: "{{ s3_username }}"
   when: create_vpc == "no" and byo_bastion == "no"
 
 - name: Create Brownfield Infrastructure with existing bastion
@@ -146,6 +150,8 @@
       NodeRootVolType: gp2
       NodeDockerVolSize: "{{ docker_storage }}"
       NodeDockerVolType: gp2
+      S3BucketName: "{{ s3_bucket_name }}"
+      S3User: "{{ s3_username }}"
   when: create_vpc == "no" and byo_bastion == "yes"
 
 - name: Add App Node 
