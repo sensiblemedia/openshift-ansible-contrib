@@ -1158,6 +1158,10 @@
     "S3UserSecretKey" : {
       "Value" : { "Fn::GetAtt" : ["CFNKeys", "SecretAccessKey"]},
       "Description" : "AWSSecretKey of new S3"
+    },
+    "S3Bucket" : {
+      "Value" : { "Ref" : "RegistryBucket"},
+      "Description" : "Name of S3 bucket"
     }
  }
 }

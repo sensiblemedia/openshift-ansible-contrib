@@ -1,4 +1,9 @@
 ---
+- name: Force remove s3 bucket
+  s3_bucket:
+    name: "{{ s3_bucket_name }}"
+    state: absent
+    force: yes
 - name: Remove Cloudformation
   cloudformation:
     stack_name: "{{ stack_name }}"

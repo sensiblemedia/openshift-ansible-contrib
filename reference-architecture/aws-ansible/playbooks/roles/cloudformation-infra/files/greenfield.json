@@ -1357,11 +1357,15 @@
   "Outputs" : {
     "S3UserAccessId" : {
       "Value" : { "Ref" : "CFNKeys" },
-      "Description" : "AWSAccessKeyId of new user"
+      "Description" : "AWSAccessKeyId of user"
     },
     "S3UserSecretKey" : {
       "Value" : { "Fn::GetAtt" : ["CFNKeys", "SecretAccessKey"]},
       "Description" : "AWSSecretKey of new S3"
+    },
+    "S3Bucket" : {
+      "Value" : { "Ref" : "RegistryBucket"},
+      "Description" : "Name of S3 bucket"
     }
  }
 }

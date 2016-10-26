@@ -9,3 +9,4 @@
   set_fact:
     s3user_id: "{{ stack['ansible_facts']['cloudformation'][stack_name]['stack_outputs']['S3UserAccessId'] }}"
     s3user_secret: "{{ stack['ansible_facts']['cloudformation'][stack_name]['stack_outputs']['S3UserSecretKey'] }}"
+    s3_bucket_name: "{{ stack['ansible_facts']['cloudformation'][stack_name]['stack_outputs']['S3Bucket'] }}"
