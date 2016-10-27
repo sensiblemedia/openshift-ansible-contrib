@@ -99,7 +99,7 @@ def launch_refarch_env(region=None,
   if existing_stack is None:
     existing_stack = click.prompt('Specify the name of the existing CloudFormation stack')
 
- # If no keypair is not specified fail:
+ # If no keypair is specified fail:
   if keypair is None:
     keypair = click.prompt('A SSH keypair must be specified or created')
 
