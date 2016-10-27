@@ -112,3 +112,25 @@ If installing OpenShift Container Platform or OpenShift Origin into an existing 
 ```
 ./ose-on-aws.py --create-vpc=no --byo-bastion=yes --keypair=OSE-key --public-hosted-zone=sysdeseng.com --deployment-type=origin --ami=ami-6d1c2007 --bastion-sg=sg-a32fa3
 ```
+
+## Multiple OpenShift deployments
+The same greenfield and brownfield deployment steps can be used to launch another instance of the reference architecture environment. When launching a new environment ensure that the variable stack-name is changed. If the variable is not changed the currently deployed environment may be changed.
+
+**OpenShift Container Platform**
+```
+./ose-on-aws.py --rhsm-user=rh-user --public-hosted-zone=rcook-aws.sysdeseng.com --keypair=OSE-key --rhsm-pool="Red Hat OpenShift Container Platform, Standard, 2-Core" --keypair=OSE-key --rhsm-password=password --stack-name=prod
+```
+
+**OpenShift Origin**
+```
+./ose-on-aws.py --keypair=OSE-key --public-hosted-zone=sysdeseng.com --deployment-type=origin --ami=ami-6d1c2007 --stack-name=prod
+```
+
+## Teardown
+
+A playbook is included to remove the s3 bucket and cloudformation. The parameter ci=true should not be used unless there is 100% certanty that all unattached EBS volumes can be removed.
+
+```
+ansible-playook -i inventory/aws/hosts -e 'region=us-east-1 stack_name=openshift-infra'
+``` 
+A registered domain must be added to Route53 as a Hosted Zone before installation.  This registered domain can be purchased through AWS.
