@@ -4,5 +4,5 @@
     port: 22
     host: "bastion.{{ public_hosted_zone }}"
     state: started
-    delay: "{{ host_up_time }}"
+    delay: 20
   when: byo_bastion == "no"
