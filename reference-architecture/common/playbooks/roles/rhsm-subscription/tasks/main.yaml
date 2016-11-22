@@ -7,7 +7,7 @@
   command: "mv -f /etc/rhsm/rhsm.conf.kat-backup /etc/rhsm/rhsm.conf"
   when: rhsm_user is defined and rhsm_user != 'None' and sat_cfg.stat.exists == True
   ignore_errors: yes
- 
+
 - name: Remove satellite SSL if using RH CDN
   command: "rpm -e $(rpm -qa katello-ca-consumer*)"
   when: rhsm_user is defined and rhsm_user != 'None' and sat_cfg.stat.exists == True
@@ -28,12 +28,10 @@
   register: register_key_result
   ignore_errors: yes
 
-- name: Register host via RH CDN
+- name: Register host
   redhat_subscription:
     username: "{{ rhsm_user }}"
     password: "{{ rhsm_password }}"
     state: present
-    pool: "{{ rhsm_pool }}"
-  when: "'Subscribed' not in subscribed.stdout and rhsm_user is defined and rhsm_user != 'None'"
-  register: register_user_result
-  ignore_errors: yes
+    pool: "^{{ rhsm_pool }}"
+  when: ansible_distribution == "RedHat" and "'Subscribed' not in subscribed.stdout and rhsm_user is defined and rhsm_user != 'None'"

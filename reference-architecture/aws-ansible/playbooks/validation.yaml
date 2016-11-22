@@ -14,4 +14,4 @@
       # Group systems
       - instance-groups
 
-- include: ../../common/validation.yaml
+- include: ../../common/playbooks/validation.yaml
