@@ -4,9 +4,9 @@
   roles:
     - instance-groups
 
-- include: ../../common/playbooks/prerequisite.yaml
+- include: ../../../playbooks/prerequisite.yaml
 
-- include: ../../common/playbooks/openshift-storage.yaml
+- include: ../../../playbooks/openshift-storage.yaml
 
 - hosts: cluster_hosts
   gather_facts: no
@@ -37,7 +37,7 @@
   roles:
     - restrict-gce-metadata
 
-- include: ../../common/playbooks/empty-dir-quota.yaml
+- include: ../../../playbooks/empty-dir-quota.yaml
 
 - hosts: primary_master
   gather_facts: no

@@ -7,7 +7,7 @@
       # Group systems
       - instance-groups
 
-- include: ../../common/playbooks/empty-dir-quota.yaml
+- include: ../../../playbooks/empty-dir-quota.yaml
 
 - hosts: primary_master
   gather_facts: yes

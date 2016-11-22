@@ -8,9 +8,9 @@
       - instance-groups
       - openshift-vm-facts
 
-- include: ../../common/playbooks/prerequisite.yaml
+- include: ../../../playbooks/prerequisite.yaml
 
-- include: ../../common/playbooks/openshift-storage.yaml
+- include: ../../../playbooks/openshift-storage.yaml
 
 - name: call openshift includes for installer
   include:  /usr/share/ansible/openshift-ansible/playbooks/byo/config.yml
