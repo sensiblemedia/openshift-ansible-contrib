@@ -2,20 +2,20 @@
   gather_facts: no
   become: no
   roles:
-      - ../roles/validate-public
+      - validate-public
 
 - hosts: masters
   gather_facts: no
   roles:
-      - ../roles/validate-masters
+      - validate-masters
 
 - hosts: masters
   gather_facts: yes
   roles:
-      - ../roles/validate-etcd
+      - validate-etcd
 
 - hosts: primary_master
   gather_facts: yes
   become: yes
   roles:
-      - ../roles/validate-app
+      - validate-app

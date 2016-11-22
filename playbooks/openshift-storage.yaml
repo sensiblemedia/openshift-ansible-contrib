@@ -3,5 +3,5 @@
   gather_facts: no
   become: yes
   roles:
-      - ../roles/docker-storage-setup
-      - ../roles/openshift-volume-quota
+      - docker-storage-setup
+      - openshift-volume-quota

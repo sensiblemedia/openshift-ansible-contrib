@@ -16,6 +16,7 @@
 - name: Is the host already registered?
   command: "subscription-manager list"
   register: subscribed
+  when: ansible_distribution == "RedHat"
   ignore_errors: yes
 
 - name: Register host via Activation key
@@ -25,7 +26,7 @@
     state: present
     pool: "{{ rhsm_pool }}"
   when: "'Subscribed' not in subscribed.stdout and rhsm_activation_key is defined and rhsm_activation_key != 'None'"
-  register: register_key_result
+  register: register_key_result and ansible_distribution == "RedHat"
   ignore_errors: yes
 
 - name: Register host

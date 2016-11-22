@@ -11,6 +11,7 @@
   package: name="{{ item }}" state=latest
   with_items:
   - NetworkManager
+  when: not openshift.common.is_atomic | bool
 
 - name: Start NetworkManager
   service:
