@@ -3,21 +3,21 @@
   openshift_facts:
     role: common
 
-- name: Clear yum cache
-  command: "yum clean all"
-  ignore_errors: true
+- block:
+    - name: Clear yum cache
+      command: "yum clean all"
+      ignore_errors: true
 
-- name: Install the required rpms
-  package: name="{{ item }}" state=latest
-  with_items:
-  - NetworkManager
-  when: not openshift.common.is_atomic | bool
+    - name: Install the required rpms
+      package: name="{{ item }}" state=latest
+      with_items:
+      - NetworkManager
 
-- name: Start NetworkManager
-  service:
-    name: "{{ item }}"
-    state: restarted
-    enabled: true
-  with_items:
-  - NetworkManager
+    - name: Start NetworkManager
+      service:
+        name: "{{ item }}"
+        state: restarted
+        enabled: true
+      with_items:
+      - NetworkManager
   when: not openshift.common.is_atomic | bool
