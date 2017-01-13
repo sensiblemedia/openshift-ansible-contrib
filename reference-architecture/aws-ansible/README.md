@@ -19,9 +19,10 @@ $ rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rp
 $ yum -y install atomic-openshift-utils \
                  python2-boto \
                  git \
-                 ansible-2.2.0.0-3.el7.noarch \
+                 ansible \
                  python-netaddr \
                  python2-boto3 \
+                 python-click \
                  python-httplib2
 ```
 
@@ -32,7 +33,8 @@ The playbooks in the repository also have the ability to configure CentOS or RHE
 $ rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 $ yum -y install python-pip git python2-boto \
                  python-netaddr python-httplib2 python-devel \
-                 gcc libffi-devel openssl-devel python2-boto3
+                 gcc libffi-devel openssl-devel python2-boto3 \
+                 python-click
 $ pip install git+https://github.com/ansible/ansible.git@stable-2.2
 $ mkdir -p /usr/share/ansible/openshift-ansible
 $ git clone https://github.com/openshift/openshift-ansible.git /usr/share/ansible/openshift-ansible
@@ -65,8 +67,12 @@ scripts:
 export AWS_ACCESS_KEY_ID=foo
 export AWS_SECRET_ACCESS_KEY=bar
 ```
+
+### GitHub Authentication
+GitHub authentication is the default authentication mechanism used for this reference architecture. GitHub authentication requires an OAuth application to be created. The values should reflect the hosted zone defined in Route53 for example the Homepage URL would be https://openshift-master.sysdeseng.com and Authorization callback URL is https://openshift-master.sysdeseng.com:8443/oauth2callback/github.
+
 ### Region
-The default region is us-east-1 but can be changed when running the ose-on-aws script by specifying --region=us-west-2 for example. The region must contain at least 3 Availability Zones. 
+The default region is us-east-1 but can be changed when running the ose-on-aws script by specifying --region=us-west-2 for example. The region must contain at least 3 Availability Zones.
 
 ### AMI ID
 The AMI ID may need to change if the AWS IAM account does not have access to the Red Hat Cloud Access gold image, another OS such as CentOs is deployed, or if deploying outside of the us-east-1 region.
@@ -79,11 +85,17 @@ When installing into an new AWS environment perform the following.   This will c
 
 **OpenShift Container Platform**
 ```
-./ose-on-aws.py --keypair=OSE-key --create-key=yes --key-path=/path/to/ssh/key.pub --rhsm-user=rh-user --rhsm-password=password --public-hosted-zone=sysdeseng.com --rhsm-pool="Red Hat OpenShift Container Platform, Standard, 2-Core"
+./ose-on-aws.py --keypair=OSE-key --create-key=yes --key-path=/path/to/ssh/key.pub --rhsm-user=rh-user --rhsm-password=password \
+--public-hosted-zone=sysdeseng.com --rhsm-pool="Red Hat OpenShift Container Platform, Standard, 2-Core" \
+--github-client-secret=47a0c41f0295b451834675ed78aecfb7876905f9 --github-organization=openshift \
+--github-organization=RHSyseng --github-client-id=3a30415d84720ad14abc
+
 ```
 **OpenShift Origin**
 ```
-./ose-on-aws.py --keypair=OSE-key --create-key=yes --key-path=/path/to/ssh/key.pub --public-hosted-zone=sysdeseng.com --deployment-type=origin --ami=ami-6d1c2007 
+./ose-on-aws.py --keypair=OSE-key --create-key=yes --key-path=/path/to/ssh/key.pub --public-hosted-zone=sysdeseng.com \
+--deployment-type=origin --ami=ami-6d1c2007 --github-client-secret=47a0c41f0295b451834675ed78aecfb7876905f9 \
+--github-organization=openshift --github-organization=RHSyseng --github-client-id=3a30415d84720ad14abc
 ```
 
 If the SSH key that you plan on using in AWS already exists then perform the following.
@@ -96,7 +108,9 @@ If the SSH key that you plan on using in AWS already exists then perform the fol
 
 **OpenShift Origin**
 ```
-./ose-on-aws.py --keypair=OSE-key --public-hosted-zone=sysdeseng.com --deployment-type=origin --ami=ami-6d1c2007
+./ose-on-aws.py --keypair=OSE-key --public-hosted-zone=sysdeseng.com --deployment-type=origin --ami=ami-6d1c2007 \
+--github-client-secret=47a0c41f0295b451834675ed78aecfb7876905f9 --github-organization=openshift \
+--github-organization=RHSyseng --github-client-id=3a30415d84720ad14abc
 ```
 
 ### Existing AWS Environment (Brownfield)
@@ -104,12 +118,18 @@ If installing OpenShift Container Platform or OpenShift Origin into an existing 
 
 **OpenShift Container Platform**
 ```
-./ose-on-aws.py --create-vpc=no --byo-bastion=yes --keypair=OSE-key --rhsm-user=rh-user --rhsm-password=password --public-hosted-zone=sysdeseng.com --rhsm-pool="Red Hat OpenShift Container Platform, Standard, 2-Core" --bastion-sg=sg-a32fa3
+./ose-on-aws.py --create-vpc=no --byo-bastion=yes --keypair=OSE-key --rhsm-user=rh-user --rhsm-password=password \
+--public-hosted-zone=sysdeseng.com --rhsm-pool="Red Hat OpenShift Container Platform, Standard, 2-Core" --bastion-sg=sg-a32fa3 \
+--github-client-secret=47a0c41f0295b451834675ed78aecfb7876905f9 --github-organization=openshift \
+--github-organization=RHSyseng --github-client-id=3a30415d84720ad14abc
 ```
 
 **OpenShift Origin**
 ```
-./ose-on-aws.py --create-vpc=no --byo-bastion=yes --keypair=OSE-key --public-hosted-zone=sysdeseng.com --deployment-type=origin --ami=ami-6d1c2007 --bastion-sg=sg-a32fa3
+./ose-on-aws.py --create-vpc=no --byo-bastion=yes --keypair=OSE-key --public-hosted-zone=sysdeseng.com \
+--deployment-type=origin --ami=ami-6d1c2007 --bastion-sg=sg-a32fa3 \
+--github-client-secret=47a0c41f0295b451834675ed78aecfb7876905f9 --github-organization=openshift \
+--github-organization=RHSyseng --github-client-id=3a30415d84720ad14abc
 ```
 
 ## Multiple OpenShift deployments
@@ -117,12 +137,17 @@ The same greenfield and brownfield deployment steps can be used to launch anothe
 
 **OpenShift Container Platform**
 ```
-./ose-on-aws.py --rhsm-user=rh-user --public-hosted-zone=rcook-aws.sysdeseng.com --keypair=OSE-key --rhsm-pool="Red Hat OpenShift Container Platform, Standard, 2-Core" --keypair=OSE-key --rhsm-password=password --stack-name=prod
+./ose-on-aws.py --rhsm-user=rh-user --public-hosted-zone=rcook-aws.sysdeseng.com --keypair=OSE-key \
+--rhsm-pool="Red Hat OpenShift Container Platform, Standard, 2-Core" --keypair=OSE-key --rhsm-password=password \
+--stack-name=prod --github-client-secret=47a0c41f0295b451834675ed78aecfb7876905f9 --github-organization=openshift \
+--github-organization=RHSyseng --github-client-id=3a30415d84720ad14abc
 ```
 
 **OpenShift Origin**
 ```
-./ose-on-aws.py --keypair=OSE-key --public-hosted-zone=sysdeseng.com --deployment-type=origin --ami=ami-6d1c2007 --stack-name=prod
+./ose-on-aws.py --keypair=OSE-key --public-hosted-zone=sysdeseng.com --deployment-type=origin --ami=ami-6d1c2007 \
+--stack-name=prod --github-client-secret=47a0c41f0295b451834675ed78aecfb7876905f9 --github-organization=openshift \
+--github-organization=RHSyseng --github-client-id=3a30415d84720ad14abc
 ```
 
 ## Teardown
@@ -130,6 +155,6 @@ The same greenfield and brownfield deployment steps can be used to launch anothe
 A playbook is included to remove the s3 bucket and cloudformation. The parameter ci=true should not be used unless there is 100% certanty that all unattached EBS volumes can be removed.
 
 ```
-ansible-playook -i inventory/aws/hosts -e 'region=us-east-1 stack_name=openshift-infra ci=false' playbooks/teardown.yaml
-``` 
+ansible-playbook -i inventory/aws/hosts -e 'region=us-east-1 stack_name=openshift-infra ci=false' playbooks/teardown.yaml
+```
 A registered domain must be added to Route53 as a Hosted Zone before installation.  This registered domain can be purchased through AWS.
