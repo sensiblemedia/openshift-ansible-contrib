@@ -1,5 +1,5 @@
 # The Reference Architecture OpenShift on VMware
-This repository contains the scripts used to deploy an OpenShift environment based off of the Reference Architecture Guide for OpenShift 3.3 on VMware
+This repository contains the scripts used to deploy an OpenShift environment based off of the Reference Architecture Guide for OpenShift 3.4 on VMware
 
 ## Overview
 The repository contains Ansible playbooks which deploy 3 Masters, 2 infrastructure nodes and 3 application nodes. All nodes could utilize anti-affinity rules to separate them on the number of hypervisors you have allocated for this deployment. The playbooks deploy a Docker registry and scale the router to the number of Infrastruture nodes.
@@ -14,7 +14,7 @@ The code in this repository handles all of the VMware specific components except
 
 ```
 subscription-manager repos --enable rhel-7-server-optional-rpms
-subscription-manager repos --enable rhel-7-server-ose-3.3-rpms
+subscription-manager repos --enable rhel-7-server-ose-3.4-rpms
 rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm*
 yum -y install atomic-openshift-utils \
                   git \
@@ -62,7 +62,7 @@ When installing all components into your VMware environment perform the followin
 
 ### Existing VM Environment and Deployment (Brownfield)
 The `ocp-on-vmware.py` script allows for deployments into an existing environment
-in which VMs already exists and are subscribed to the proper `RHEL` [channels].(https://access.redhat.com/documentation/en/openshift-container-platform/3.3/single/installation-and-configuration/#installing-base-packages)
+in which VMs already exists and are subscribed to the proper `RHEL` [channels].(https://access.redhat.com/documentation/en/openshift-container-platform/3.4/single/installation-and-configuration/#installing-base-packages)
 The prerequisite packages will be installed. The script expects the proper VM annotations are
 created on your VMs. App nodes will be labeled "app", infra nodes labeled
 "infra" and master nodes labeled as "master."
