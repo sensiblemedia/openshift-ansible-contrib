@@ -1,0 +1,19 @@
+---
+- name: Clear yum cache
+  command: "yum clean all"
+  ignore_errors: true
+
+- name: Install the required rpms
+  package: name="{{ item }}" state=latest
+  with_items:
+  - python-libcloud
+  - atomic-openshift-utils
+  - google-compute-engine
+  - google-compute-engine-init
+  - google-config
+  - python-httplib2
+  - wget
+  - git
+  - net-tools
+  - bind-utils
+  - iptables-services

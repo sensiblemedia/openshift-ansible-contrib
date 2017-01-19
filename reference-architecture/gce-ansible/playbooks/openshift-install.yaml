@@ -4,6 +4,13 @@
   roles:
     - instance-groups
 
+- hosts: bastion 
+  connection: local
+  gather_facts: no
+  roles:
+    - bastion-prerequisites
+    - rhsm-subscription
+ 
 - include: ../../../playbooks/prerequisite.yaml
 
 - include: ../../../playbooks/openshift-storage.yaml
@@ -12,6 +19,7 @@
   gather_facts: no
   roles:
     - gce-cloudconfig
+    - gce-prerequisites
 
 - include: openshift-setup.yaml
 

@@ -1,0 +1,31 @@
+---
+- name: Gather facts
+  openshift_facts:
+    role: common
+
+- block:
+    - name: Add Google Cloud compute repo
+      yum_repository:
+        name: Google Cloud Compute
+        description: Google Cloud Compute
+        baseurl: https://packages.cloud.google.com/yum/repos/google-cloud-compute-el7-x86_64
+        gpgkey: https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg 
+        gpgcheck: yes
+
+    - name: Add other GCloud GPG 
+      rpm_key:
+        state: present
+        key: https://packages.cloud.google.com/yum/doc/yum-key.gpg
+
+    - name: Install the required rpms
+      package: name="{{ item }}" state=latest
+      with_items:
+      - google-compute-engine
+      - google-compute-engine-init
+      - google-config
+      - python-httplib2
+
+    - name: Install the required rpms
+      package: name='*' state=latest
+
+  when: not openshift.common.is_atomic | bool
