@@ -5,11 +5,10 @@
     - instance-groups
 
 - hosts: bastion 
-  connection: local
   gather_facts: no
   roles:
-    - bastion-prerequisites
     - rhsm-subscription
+    - bastion-prerequisites
  
 - include: ../../../playbooks/prerequisite.yaml
 
