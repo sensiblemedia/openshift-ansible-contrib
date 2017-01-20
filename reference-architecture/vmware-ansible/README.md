@@ -21,6 +21,7 @@ yum -y install atomic-openshift-utils \
                   pyOpenSSL \
                   python-simplejson \
                   PyYAML \
+                  python-six \
                   python-ldap \
                   python-click \
                   python-iptools \

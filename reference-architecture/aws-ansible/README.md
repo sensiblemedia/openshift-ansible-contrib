@@ -21,6 +21,7 @@ $ yum -y install atomic-openshift-utils \
                  git \
                  ansible \
                  python-netaddr \
+                 python-six \
                  python2-boto3 \
                  python-click \
                  python-httplib2
@@ -34,7 +35,7 @@ $ rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rp
 $ yum -y install python-pip git python2-boto \
                  python-netaddr python-httplib2 python-devel \
                  gcc libffi-devel openssl-devel python2-boto3 \
-                 python-click
+                 python-click python-six
 $ pip install git+https://github.com/ansible/ansible.git@stable-2.2
 $ mkdir -p /usr/share/ansible/openshift-ansible
 $ git clone https://github.com/openshift/openshift-ansible.git /usr/share/ansible/openshift-ansible
