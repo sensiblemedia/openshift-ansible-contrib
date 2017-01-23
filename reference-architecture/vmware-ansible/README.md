@@ -15,7 +15,7 @@ The code in this repository handles all of the VMware specific components except
 ```bash
 subscription-manager repos --enable rhel-7-server-optional-rpms
 subscription-manager repos --enable rhel-7-server-ose-3.4-rpms
-rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm*
+rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 yum -y install atomic-openshift-utils \
                   git \
                   pyOpenSSL \
