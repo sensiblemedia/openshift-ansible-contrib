@@ -74,6 +74,8 @@ import sys
 @click.option('--github-client-secret', help='GitHub OAuth Client Secret')
 @click.option('--github-organization', multiple=True, help='GitHub Organization')
 @click.option('--s3-username',  help='S3 user for registry access')
+@click.option('--openshift-metrics',  help='Deploy OpenShift Metrics', type=click.Choice(['true', 'false']), default='false')
+@click.option('--openshift-logging',  help='Deploy OpenShift Logging', type=click.Choice(['true', 'false']), default='false')
 @click.option('--no-confirm', is_flag=True,
               help='Skip confirmation prompt')
 @click.help_option('--help', '-h')
@@ -113,6 +115,8 @@ def launch_refarch_env(region=None,
                     github_client_id=None,
                     github_client_secret=None,
                     github_organization=None,
+                    openshift_metrics=None,
+                    openshift_logging=None,
                     verbose=0):
 
   # Need to prompt for the R53 zone:
@@ -216,6 +220,8 @@ def launch_refarch_env(region=None,
   click.echo('\tgithub_client_id: *******')
   click.echo('\tgithub_client_secret: *******')
   click.echo('\tgithub_organization: %s' % (','.join(github_organization)))
+  click.echo('\topenshift_logging: %s' % openshift_logging)
+  click.echo('\topenshift_metrics: %s' % openshift_metrics)
   click.echo("")
 
   if not no_confirm:
@@ -271,7 +277,10 @@ def launch_refarch_env(region=None,
     containerized=%s \
     s3_bucket_name=%s \
     s3_username=%s \
+    openshift_logging=%s \
+    openshift_metrics=%s \
     github_client_id=%s \
+    github_client_secret=%s \
     github_client_secret=%s \
     github_organization=%s\' %s' % (region,
                     stack_name,
@@ -303,6 +312,8 @@ def launch_refarch_env(region=None,
                     containerized,
                     s3_bucket_name,
                     s3_username,
+                    openshift_logging,
+                    openshift_metrics,
                     github_client_id,
                     github_client_secret,
                     str(map(lambda x: x.encode('utf8'), github_organization)).replace("'", '"').replace(' ', ''),
