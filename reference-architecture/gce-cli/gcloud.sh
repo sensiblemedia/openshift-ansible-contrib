@@ -701,7 +701,7 @@ gcloud --project "$GCLOUD_PROJECT" compute ssh "cloud-user@${BASTION_INSTANCE}" 
     fi
     pushd ~/openshift-ansible-contrib/reference-architecture/gce-ansible;
     git fetch -a -v
-    git checkout 3.4-release
+    git checkout workaround 
     ansible-playbook -e @~/ansible-config.yml playbooks/openshift-install.yaml;
 '";
 
