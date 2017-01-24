@@ -40,10 +40,10 @@
 - include: ../../../playbooks/empty-dir-quota.yaml
 
 
-#- hosts: primary_master
-#  gather_facts: no
-#  roles:
-#    - openshift-registry
+- hosts: primary_master
+  gather_facts: no
+  roles:
+    - openshift-registry
 
 
-      #- include: validation.yaml
+- include: validation.yaml
