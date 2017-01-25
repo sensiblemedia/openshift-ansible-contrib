@@ -246,7 +246,7 @@ def launch_refarch_env(region=None,
     command='rm -rf .ansible/cached_facts'
     os.system(command)
 
-    command='ansible-playbook -i inventory/aws/hosts -e \'region=%s \
+    command='ansible-playbook -vvv -i inventory/aws/hosts -e \'region=%s \
     stack_name=%s \
     ami=%s \
     keypair=%s \
@@ -277,12 +277,11 @@ def launch_refarch_env(region=None,
     containerized=%s \
     s3_bucket_name=%s \
     s3_username=%s \
-    openshift_logging=%s \
-    openshift_metrics=%s \
     github_client_id=%s \
     github_client_secret=%s \
-    github_client_secret=%s \
-    github_organization=%s\' %s' % (region,
+    github_organization=%s \
+    openshift_logging=%s \
+    openshift_metrics=%s\' %s' % (region,
                     stack_name,
                     ami,
                     keypair,
@@ -312,11 +311,11 @@ def launch_refarch_env(region=None,
                     containerized,
                     s3_bucket_name,
                     s3_username,
-                    openshift_logging,
-                    openshift_metrics,
                     github_client_id,
                     github_client_secret,
                     str(map(lambda x: x.encode('utf8'), github_organization)).replace("'", '"').replace(' ', ''),
+                    openshift_logging,
+                    openshift_metrics,
                     playbook)
 
     if verbose > 0:
