@@ -246,7 +246,7 @@ def launch_refarch_env(region=None,
     command='rm -rf .ansible/cached_facts'
     os.system(command)
 
-    command='ansible-playbook -vvv -i inventory/aws/hosts -e \'region=%s \
+    command='ansible-playbook -i inventory/aws/hosts -e \'region=%s \
     stack_name=%s \
     ami=%s \
     keypair=%s \
