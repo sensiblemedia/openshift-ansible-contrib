@@ -1,0 +1,8 @@
+- name: Add nodes to host group
+  add_host:
+    name: "{{ hostvars[item].gce_name }}"
+    groups: nodes, cluster_hosts, schedulable_nodes, new_nodes, infra_nodes
+    openshift_node_labels:
+      role: app
+  with_items: "{{ groups['tag_new-nodes'] }}"
+

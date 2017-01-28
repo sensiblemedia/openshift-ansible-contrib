@@ -1,0 +1,25 @@
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  become: no
+  roles:
+      # Group systems
+      - instance-groups
+
+- hosts: new_nodes 
+  gather_facts: yes 
+  become: yes
+  serial: 1
+  user: cloud-user
+  roles:
+      - rhsm-subscription
+      
+- hosts: new_nodes
+  gather_facts: no
+  become: yes
+  user: cloud-user
+  roles:
+      - rhsm-repos
+      - prerequisite 
+      
+- include: node-setup.yaml

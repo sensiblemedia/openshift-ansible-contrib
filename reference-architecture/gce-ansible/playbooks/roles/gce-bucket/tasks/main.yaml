@@ -1,0 +1,6 @@
+---
+- name: Create an empty bucket
+    gc_storage:
+      bucket: mybucket
+      mode: create
+
