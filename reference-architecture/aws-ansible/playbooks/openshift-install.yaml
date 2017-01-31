@@ -10,6 +10,8 @@
   - cfn-outputs
   - instance-groups
 
+- include: ../../../playbooks/update.yaml
+
 - hosts: localhost
   connection: local
   gather_facts: no
