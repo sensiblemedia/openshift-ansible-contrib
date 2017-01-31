@@ -10,8 +10,6 @@
   - cfn-outputs
   - instance-groups
 
-- include: ../../../playbooks/update.yaml
-
 - hosts: localhost
   connection: local
   gather_facts: no
@@ -20,6 +18,8 @@
   - vars/main.yaml
   roles:
   - host-up
+
+- include: ../../../playbooks/update.yaml
 
 - include: ../../../playbooks/prerequisite.yaml
 
