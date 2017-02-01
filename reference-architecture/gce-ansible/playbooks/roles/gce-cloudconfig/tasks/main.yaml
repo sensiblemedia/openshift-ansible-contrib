@@ -1,6 +1,6 @@
 ---
 - name: ensure the /etc/origin/cloudprovider folder exists
-  file: 
+  file:
     name: "{{ openshift.common.config_base }}cloudprovider"
     state: directory
     recurse: yes
