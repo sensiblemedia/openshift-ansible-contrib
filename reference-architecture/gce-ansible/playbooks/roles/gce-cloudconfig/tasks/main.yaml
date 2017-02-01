@@ -8,7 +8,8 @@
 - name: configure gce cloud config options
   ini_file:
     dest: /etc/origin/cloudprovider/gce.conf
-    section: global option={{ item.key }}
+    section: global
+    option: {{ item.key }}
     value: {{ item.value }}
     state: present
     create: yes
