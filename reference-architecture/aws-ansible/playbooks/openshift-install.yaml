@@ -19,8 +19,6 @@
   roles:
   - host-up
 
-- include: ../../../playbooks/update.yaml
-
 - include: ../../../playbooks/prerequisite.yaml
 
 - include: openshift-setup.yaml
