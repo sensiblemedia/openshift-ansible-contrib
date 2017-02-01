@@ -9,8 +9,8 @@
   ini_file:
     dest: /etc/origin/cloudprovider/gce.conf
     section: global
-    option: {{ item.key }}
-    value: {{ item.value }}
+    option: "{{ item.key }}"
+    value: "{{ item.value }}"    
     state: present
     create: yes
   with_items:
