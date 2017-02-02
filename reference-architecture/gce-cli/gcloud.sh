@@ -391,6 +391,7 @@ EOF
         yum install -y google-compute-engine google-compute-engine-init google-config wget git net-tools bind-utils iptables-services bridge-utils bash-completion python-httplib2 docker;
         yum update -y;
         yum clean all;
+        subscription-manager unregister;
 '"; then
         gcloud -q --project "$GCLOUD_PROJECT" compute instances delete "$TEMP_INSTANCE" --zone "$GCLOUD_ZONE"
         gcloud -q --project "$GCLOUD_PROJECT" compute disks delete "$TEMP_INSTANCE" --zone "$GCLOUD_ZONE"
@@ -697,10 +698,11 @@ gcloud --project "$GCLOUD_PROJECT" compute ssh "cloud-user@${BASTION_INSTANCE}" 
     ~/google-cloud-sdk/bin/gcloud compute ssh cloud-user@${BASTION_INSTANCE} --zone ${GCLOUD_ZONE} --command echo;
 
     if [ ! -d ~/openshift-ansible-contrib ]; then
-        git clone https://github.com/openshift/openshift-ansible-contrib.git ~/openshift-ansible-contrib;
+        git clone https://github.com/cooktheryan/openshift-ansible-contrib.git ~/openshift-ansible-contrib;
     fi
     pushd ~/openshift-ansible-contrib/reference-architecture/gce-ansible;
-    ansible-playbook -e @~/ansible-config.yml playbooks/openshift-install.yaml;
+    git checkout gce-subs
+    ansible-playbook -e 'rhsm_user=${RH_USERNAME} rhsm_password="${RH_PASSWORD}" rhsm_pool=${RH_POOL_ID}'-e @~/ansible-config.yml playbooks/openshift-install.yaml;
 '";
 
 echo
