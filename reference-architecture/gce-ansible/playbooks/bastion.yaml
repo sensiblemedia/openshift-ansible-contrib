@@ -3,4 +3,7 @@
   connection: local
   gather_facts: no
   roles:
-- include: ../../../playbooks/prerequisite.yaml
+  - rhsm-subscription
+  - rhsm-repos
+  - prerequisites
+
