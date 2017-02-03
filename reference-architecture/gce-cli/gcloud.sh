@@ -680,13 +680,13 @@ gcloud --project "$GCLOUD_PROJECT" compute copy-files "${DIR}/ansible-config.yml
 
 # Prepare bastion instance for openshift installation
 gcloud --project "$GCLOUD_PROJECT" compute ssh "cloud-user@${BASTION_INSTANCE}" --zone "$GCLOUD_ZONE" --ssh-flag="-t" --command "sudo bash -euc '
-    #subscription-manager register --username=${RH_USERNAME} --password=\"${RH_PASSWORD}\";
-    #subscription-manager attach --pool=${RH_POOL_ID};
-    #subscription-manager repos --disable=\"*\";
-    #subscription-manager repos \
-    #    --enable=\"rhel-7-server-rpms\" \
-    #    --enable=\"rhel-7-server-extras-rpms\" \
-    #    --enable=\"rhel-7-server-ose-${OCP_VERSION}-rpms\";
+    subscription-manager register --username=${RH_USERNAME} --password=\"${RH_PASSWORD}\";
+    subscription-manager attach --pool=${RH_POOL_ID};
+    subscription-manager repos --disable=\"*\";
+    subscription-manager repos \
+        --enable=\"rhel-7-server-rpms\" \
+        --enable=\"rhel-7-server-extras-rpms\" \
+        --enable=\"rhel-7-server-ose-${OCP_VERSION}-rpms\";
     yum install -y python-libcloud atomic-openshift-utils;
 
     if ! grep -q \"export GCE_PROJECT=${GCLOUD_PROJECT}\" /etc/profile.d/ocp.sh 2>/dev/null; then
@@ -711,10 +711,9 @@ gcloud --project "$GCLOUD_PROJECT" compute ssh "cloud-user@${BASTION_INSTANCE}" 
     ~/google-cloud-sdk/bin/gcloud compute ssh cloud-user@${BASTION_INSTANCE} --zone ${GCLOUD_ZONE} --command echo;
 
     if [ ! -d ~/openshift-ansible-contrib ]; then
-        git clone https://github.com/cooktheryan/openshift-ansible-contrib.git ~/openshift-ansible-contrib;
+        git clone https://github.com/openshift/openshift-ansible-contrib.git ~/openshift-ansible-contrib;
     fi
     pushd ~/openshift-ansible-contrib/reference-architecture/gce-ansible;
-    git checkout gce-subs
     ansible-playbook -e rhsm_user=${RH_USERNAME} -e rhsm_password="${RH_PASSWORD}" -e rhsm_pool=${RH_POOL_ID} -e @~/ansible-config.yml playbooks/openshift-install.yaml;
 '";
 
