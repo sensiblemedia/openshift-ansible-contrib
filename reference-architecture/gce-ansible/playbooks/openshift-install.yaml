@@ -5,15 +5,6 @@
   roles:
     - instance-groups
 
-- hosts: localhost
-  connection: local
-  gather_facts: yes
-  become: yes
-  roles:
-  - rhsm-subscription
-  - rhsm-repos
-  - bastion-prerequisites
-
 - include: ../../../playbooks/prerequisite.yaml
 
 - include: ../../../playbooks/openshift-storage.yaml
