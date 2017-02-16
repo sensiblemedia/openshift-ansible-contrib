@@ -5,5 +5,5 @@
       name: "{{ item }}"
       state: latest
     with_items:
-    - git 
+    - git
   when: not openshift.common.is_atomic | bool

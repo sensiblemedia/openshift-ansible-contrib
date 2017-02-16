@@ -13,7 +13,7 @@
   - rhsm-repos
   - prerequisites
 
-- hosts: masters 
+- hosts: master
   gather_facts: no
   become: yes
   roles:
