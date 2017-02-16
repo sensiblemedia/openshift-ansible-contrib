@@ -1,0 +1,9 @@
+---
+- block:
+  - name: Install git
+    package:
+      name: "{{ item }}"
+      state: latest
+    with_items:
+    - git 
+  when: not openshift.common.is_atomic | bool

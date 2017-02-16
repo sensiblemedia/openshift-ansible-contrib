@@ -12,3 +12,9 @@
   roles:
   - rhsm-repos
   - prerequisites
+
+- hosts: masters 
+  gather_facts: no
+  become: yes
+  roles:
+  - master-prerequisites
