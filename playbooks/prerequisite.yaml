@@ -14,7 +14,7 @@
   - prerequisites
 
 - hosts: master
-  gather_facts: no
+  gather_facts: yes
   become: yes
   roles:
   - master-prerequisites
