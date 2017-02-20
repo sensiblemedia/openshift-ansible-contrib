@@ -23,6 +23,8 @@
     osm_default_node_selector: "role=app"
     openshift_deployment_type: openshift-enterprise
     deployment_type: "{{ openshift_deployment_type }}"
+    openshift_release: 3.4.1.2 
+    openshift_pkg_version: -3.4.1.2-1.git.0.d760092.el7.x86_64
     openshift_master_identity_providers:
     - name: google
       kind: GoogleIdentityProvider

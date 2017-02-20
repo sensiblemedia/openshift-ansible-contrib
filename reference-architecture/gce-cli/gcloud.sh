@@ -711,9 +711,10 @@ gcloud --project "$GCLOUD_PROJECT" compute ssh "cloud-user@${BASTION_INSTANCE}" 
     ~/google-cloud-sdk/bin/gcloud compute ssh cloud-user@${BASTION_INSTANCE} --zone ${GCLOUD_ZONE} --command echo;
 
     if [ ! -d ~/openshift-ansible-contrib ]; then
-        git clone https://github.com/openshift/openshift-ansible-contrib.git ~/openshift-ansible-contrib;
+        git clone https://github.com/cooktheryan/openshift-ansible-contrib.git ~/openshift-ansible-contrib;
     fi
     pushd ~/openshift-ansible-contrib/reference-architecture/gce-ansible;
+    git checkout gce-old-vers
     ansible-playbook -e rhsm_user=${RH_USERNAME} -e rhsm_password="${RH_PASSWORD}" -e rhsm_pool=${RH_POOL_ID} -e @~/ansible-config.yml playbooks/openshift-install.yaml;
 '";
 
