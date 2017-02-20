@@ -10,4 +10,8 @@
   - cfn-outputs
   - instance-groups
 
+- include: ../../../playbooks/unexclude-atomic-docker.yaml
+
 - include: ../../../playbooks/minor-update.yaml
+
+- include: ../../../playbooks/exclude-atomic-docker.yaml
