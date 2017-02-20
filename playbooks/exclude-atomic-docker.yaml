@@ -2,11 +2,5 @@
 - hosts: cluster_hosts
   gather_facts: no
   become: yes
-  tasks:
-    - block:
-       - name: Exclude atomic-openshift packages
-         command: atomic-openshift-excluder exclude
-
-       - name: Exclude docker package
-         command: atomic-openshift-docker excluder exclude
-      when: not openshift.common.is_atomic | bool
+  roles:
+    - exclude
