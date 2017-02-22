@@ -280,8 +280,8 @@ def launch_refarch_env(region=None,
     github_client_id=%s \
     github_client_secret=%s \
     github_organization=%s \
-    openshift_logging=%s \
-    openshift_metrics=%s\' %s' % (region,
+    openshift_hosted_logging_deploy=%s \
+    openshift_hosted_metrics_deploy=%s\' %s' % (region,
                     stack_name,
                     ami,
                     keypair,
