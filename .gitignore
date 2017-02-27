@@ -23,3 +23,5 @@ ocp-installer
 vmware_inventory.ini
 infrastructure.json
 ansible.log
+.tox
+static-inventory

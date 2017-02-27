@@ -57,6 +57,7 @@ Host bastion
      Hostname                   bastion.sysdeseng.com
      user                       ec2-user
      StrictHostKeyChecking      no
+     ProxyCommand               none
      CheckHostIP                no
      ForwardAgent               yes
      IdentityFile               /path/to/ssh/key
@@ -77,7 +78,7 @@ GitHub authentication is the default authentication mechanism used for this refe
 The default region is us-east-1 but can be changed when running the ose-on-aws script by specifying --region=us-west-2 for example. The region must contain at least 3 Availability Zones.
 
 ### AMI ID
-The AMI ID may need to change if the AWS IAM account does not have access to the Red Hat Cloud Access gold image, another OS such as CentOs is deployed, or if deploying outside of the us-east-1 region.
+The AMI ID may need to change if the AWS IAM account does not have access to the Red Hat Cloud Access gold image, another OS such as CentOS is deployed, or if deploying outside of the us-east-1 region.
 
 ### Containerized Installation
 Specifying the configuration trigger --containerized=true will install and run OpenShift services in containers. Both Atomic Host and RHEL can run OpenShift in containers. When using Atomic Host the version of docker must be 1.10 or greater and the configuration trigger --containerized=true must be used or OpenShift will not operate as expected.
