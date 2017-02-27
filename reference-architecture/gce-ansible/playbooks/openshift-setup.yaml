@@ -35,3 +35,5 @@
       hostedDomain: example.com
     osm_use_cockpit: false
     containerized: false
+    openshift_hosted_metrics_storage_kind: dynamic
+    openshift_master_metrics_public_url: "https://metrics.{{ osm_default_subdomain }}/hawkular/metrics"
