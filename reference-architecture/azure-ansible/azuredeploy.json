@@ -325,18 +325,6 @@
         "accountType" : "[variables('vmSizesMap')[parameters('masterVMSize')].storageAccountType]"
       }
     },
-	{
-      "type" : "Microsoft.Storage/storageAccounts",
-      "name" : "[variables('storeStorageName')]",
-      "apiVersion" : "[variables('apiVersion')]",
-      "location" : "[variables('location')]",
-      "tags" : {
-        "displayName" : "StorageAccount"
-      },
-      "properties" : {
-        "accountType" : "[variables('vmSizesMap')[parameters('storeVMSize')].storageAccountType]"
-      }
-    },
     {
       "apiVersion" : "[variables('apiVersion')]",
       "type" : "Microsoft.Network/virtualNetworks",
