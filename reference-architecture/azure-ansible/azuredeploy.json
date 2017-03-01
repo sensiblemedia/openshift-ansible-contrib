@@ -257,7 +257,7 @@
     }
   },
   "variables" : {
-    "baseTemplateUrl" : "https://raw.githubusercontent.com/cooktheryan/openshift-ansible-contrib/azure-hacking/reference-architecture/azure-ansible",
+    "baseTemplateUrl" : "https://raw.githubusercontent.com/cooktheryan/openshift-ansible-contrib/azure-hacking/reference-architecture/azure-ansible/",
     "baseVMachineTemplateUriInfranode" : "[concat(variables('baseTemplateUrl'), 'infranode.json')]",
     "baseVMachineTemplateUriNode" : "[concat(variables('baseTemplateUrl'), 'node.json')]",
     "baseVMachineTemplateUriMaster" : "[concat(variables('baseTemplateUrl'), 'master.json')]",
