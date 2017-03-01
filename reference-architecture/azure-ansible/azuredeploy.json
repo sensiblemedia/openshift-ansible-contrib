@@ -427,6 +427,9 @@
 		"Standard_DS5_v2": {
 			"storageAccountType": "Premium_LRS"
 		},
+		"Standard_DS11_v2": {
+			"storageAccountType": "Premium_LRS"
+		},
 		"Standard_DS12_v2": {
 			"storageAccountType": "Premium_LRS"
 		},
