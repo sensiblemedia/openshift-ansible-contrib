@@ -93,7 +93,6 @@
         "Standard_DS3_v2",
         "Standard_DS4_v2",
         "Standard_DS5_v2",
-        "Standard_DS11_v2",
         "Standard_DS12_v2",
         "Standard_DS13_v2",
         "Standard_DS14_v2",
@@ -121,6 +120,7 @@
         "Standard_A9",
         "Standard_A10",
         "Standard_A11",
+        "Standard_D1",
         "Standard_D2",
         "Standard_D3",
         "Standard_D4",
@@ -182,6 +182,7 @@
         "Standard_A9",
         "Standard_A10",
         "Standard_A11",
+        "Standard_D1",
         "Standard_D2",
         "Standard_D3",
         "Standard_D4",
@@ -424,9 +425,6 @@
 			"storageAccountType": "Premium_LRS"
 		},
 		"Standard_DS5_v2": {
-			"storageAccountType": "Premium_LRS"
-		},
-		"Standard_DS11_v2": {
 			"storageAccountType": "Premium_LRS"
 		},
 		"Standard_DS12_v2": {
