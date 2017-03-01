@@ -6,10 +6,8 @@ systemctl enable dnsmasq.service
 systemctl start dnsmasq.service
 
 #yum -y update
-yum -y install wget git net-tools bind-utils iptables-services bridge-utils bash-completion docker
+yum -y install wget git net-tools bind-utils iptables-services bridge-utils bash-completion
 
-sed -i -e "s#^OPTIONS='--selinux-enabled'#OPTIONS='--selinux-enabled --insecure-registry 172.30.0.0/16'#" /etc/sysconfig/docker
-                                                                                         
 cat <<EOF > /etc/sysconfig/docker-storage-setup
 DEVS=/dev/sdc
 VG=docker-vg

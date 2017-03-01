@@ -104,8 +104,6 @@ openshift_master_debug_level="{{ master_debug_level | default(debug_level, true)
 openshift_master_access_token_max_seconds=2419200
 openshift_hosted_router_replicas=4
 openshift_hosted_registry_replicas=1
-openshift_hosted_router_selector='role=app'
-openshift_hosted_registry_selector='role=app'
 openshift_master_api_port="{{ console_port }}"
 openshift_master_console_port="{{ console_port }}"
 openshift_override_hostname_check=true
