@@ -1,8 +1,8 @@
 # The Reference Architecture OpenShift on Amazon Web Services
-This repository contains the scripts used to deploy an OpenShift Container Platform or OpenShift Origin environment based off of the Reference Architecture Guide for OCP 3.3 on Amazon Web Services.
+This repository contains the scripts used to deploy an OpenShift Container Platform or OpenShift Origin environment based off of the Reference Architecture Guide for OCP 3.4 on Amazon Web Services.
 
 ## Overview
-The repository contains Ansible playbooks which deploy 3 Masters in different availability zones, 2 infrastructure nodes and 2 applcation nodes. The Infrastrucute and Application nodes are split between two availbility zones.  The playbooks deploy a Docker registry and scale the router to the number of Infrastruture nodes.
+The repository contains Ansible playbooks which deploy 3 Masters in different availability zones, 3 infrastructure nodes and 2 applcation nodes. The Infrastrucute and Application nodes are split between availbility zones.  The playbooks deploy a Docker registry and scale the router to the number of Infrastruture nodes.
 
 ![Architecture](images/arch.jpg)
 
@@ -14,7 +14,7 @@ The code in this repository handles all of the AWS specific components except fo
 
 ```
 $ subscription-manager repos --enable rhel-7-server-optional-rpms
-$ subscription-manager repos --enable rhel-7-server-ose-3.3-rpms
+$ subscription-manager repos --enable rhel-7-server-ose-3.4-rpms
 $ rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 $ yum -y install atomic-openshift-utils \
                  python2-boto \
@@ -22,6 +22,7 @@ $ yum -y install atomic-openshift-utils \
                  git \
                  ansible \
                  python-netaddr \
+                 python-six \
                  python2-boto3 \
                  python-click \
                  python-httplib2
@@ -35,7 +36,7 @@ $ rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rp
 $ yum -y install python-pip git python2-boto \
                  python-netaddr python-httplib2 python-devel \
                  gcc libffi-devel openssl-devel python2-boto3 \
-                 python-click pyOpenSSL
+                 python-click python-six pyOpenSSL
 $ pip install git+https://github.com/ansible/ansible.git@stable-2.2
 $ mkdir -p /usr/share/ansible/openshift-ansible
 $ git clone https://github.com/openshift/openshift-ansible.git /usr/share/ansible/openshift-ansible
@@ -56,6 +57,7 @@ Host bastion
      Hostname                   bastion.sysdeseng.com
      user                       ec2-user
      StrictHostKeyChecking      no
+     ProxyCommand               none
      CheckHostIP                no
      ForwardAgent               yes
      IdentityFile               /path/to/ssh/key
@@ -76,7 +78,7 @@ GitHub authentication is the default authentication mechanism used for this refe
 The default region is us-east-1 but can be changed when running the ose-on-aws script by specifying --region=us-west-2 for example. The region must contain at least 3 Availability Zones.
 
 ### AMI ID
-The AMI ID may need to change if the AWS IAM account does not have access to the Red Hat Cloud Access gold image, another OS such as CentOs is deployed, or if deploying outside of the us-east-1 region.
+The AMI ID may need to change if the AWS IAM account does not have access to the Red Hat Cloud Access gold image, another OS such as CentOS is deployed, or if deploying outside of the us-east-1 region.
 
 ### Containerized Installation
 Specifying the configuration trigger --containerized=true will install and run OpenShift services in containers. Both Atomic Host and RHEL can run OpenShift in containers. When using Atomic Host the version of docker must be 1.10 or greater and the configuration trigger --containerized=true must be used or OpenShift will not operate as expected.

@@ -1,5 +1,4 @@
 ---
-
 - name: Create OpenShift Git Repository Content Home
   file:
     path: "{{ item }}"
@@ -19,5 +18,3 @@
     - "{{ openshift_example_repos }}"
   become: yes
   become_user: "{{ git_user }}"
-
-  

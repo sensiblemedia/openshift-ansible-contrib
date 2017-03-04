@@ -1,6 +1,6 @@
 # The Reference Architecture OpenShift on Google Cloud Engine
 
-This directory contains the scripts used to deploy an OpenShift environment based off of the Reference Architecture Guide for OpenShift 3.3 on Google Cloud Engine.
+This directory contains the scripts used to deploy an OpenShift environment based off of the Reference Architecture Guide for OpenShift 3.4 on Google Cloud Engine.
 
 ## Overview
 
@@ -26,4 +26,17 @@ ansible-playbook -e 'public_hosted_zone=ocp.example.com \
     gce_project_id=example \
     gce_network_name=ocp-network' \
     playbooks/openshift-install.yaml
+```
+
+### Creating a static inventory
+The need may arise for a static Ansible inventory to be used. The Ansible playbook below will query Google Cloud Engine to list the OpenShift instances. The playbook generates a file named static-inventory.
+
+```
+ansible-playbook -e @~/ansible-config.yml \
+playbooks/create-inventory-file.yaml
+```
+This script will output the file static-inventory to the current directory. The static inventory can then be called by using the -i parameter with ansible. Below is an example running the uninstall playbook with the newly generated static-inventory.
+
+```
+ansible-playbook -i static-inventory /usr/share/ansible/openshift-ansible/playbooks/adhoc/uninstall.yml
 ```

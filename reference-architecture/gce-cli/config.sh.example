@@ -3,7 +3,12 @@
 
 # Path to a RHEL image on local machine, downloaded from Red Hat Customer Portal
 RHEL_IMAGE_PATH="${HOME}/Downloads/rhel-guest-image-7.3-35.x86_64.qcow2"
+
+# Choose to delete or retain the unregistered image
 DELETE_IMAGE=true
+
+# Choose to delete or retain the registered image
+REGISTERED_IMAGE_DELETE=true
 
 # Username and password for Red Hat Customer Portal
 RH_USERNAME='user@example.com'
@@ -33,9 +38,12 @@ MASTER_HTTPS_KEY_FILE="${HOME}/master.${DNS_DOMAIN}.key"
 # OpenShift Identity providers. This is Google oauth example (hosted_domain is optional and restricts login to users only from the specified domain)
 OCP_IDENTITY_PROVIDERS='[ {"name": "google", "kind": "GoogleIdentityProvider", "login": "true", "challenge": "false", "mapping_method": "claim", "client_id": "xxx-yyy.apps.googleusercontent.com", "client_secret": "zzz", "hosted_domain": "example.com"} ]'
 
+# OpenShift SDN selection (default is 'openshift-ovs-subnet')
+OPENSHIFT_SDN='openshift-ovs-subnet'
+
 ## DEFAULT VALUES ##
 
-OCP_VERSION='3.3'
+OCP_VERSION='3.4'
 
 CONSOLE_PORT='443'
 

@@ -48,6 +48,8 @@
       NodeDockerVolType: gp2
       S3BucketName: "{{ s3_bucket_name }}"
       S3User: "{{ s3_username }}"
+    tags:
+      KubernetesCluster: "{{ stack_name }}"
   when: create_vpc == "yes" and region == "us-east-1"
 
 - name: Create Greenfield Infrastructure
@@ -67,12 +69,13 @@
       AppWildcardDomain: "*.{{ wildcard_zone }}"
       VpcCidrBlock: "{{ cidr_block }}"
       VpcName: "{{ vpc_prefix }}"
-      SubnetCidrBlocks: "{{ subnet_blocks }}" 
+      SubnetAvailabilityZones: "{{ vpc_subnet_azs }}"
+      SubnetCidrBlocks: "{{ subnet_blocks }}"
       KeyName: "{{ keypair }}"
       MasterInstanceType: "{{ master_instance_type }}"
       AmiId: "{{ ami }}"
       BastionInstanceType: "{{ bastion_instance_type }}"
-      BastionUserData: "{{ lookup('file', 'user_data_bastion.yml') | b64encode }}" 
+      BastionUserData: "{{ lookup('file', 'user_data_bastion.yml') | b64encode }}"
       MasterRootVolSize: 10
       BastionRootVolType: gp2
       MasterRootVolType: gp2
@@ -82,7 +85,7 @@
       MasterEtcdVolType: gp2
       MasterEmptyVolSize: 5
       MasterEmptyVolType: gp2
-      MasterUserData: "{{ lookup('file', 'user_data_master.yml') | b64encode }}" 
+      MasterUserData: "{{ lookup('file', 'user_data_master.yml') | b64encode }}"
       InfraInstanceType: "{{ node_instance_type }}"
       InfraRootVolSize: 15
       InfraRootVolType: gp2
@@ -99,6 +102,8 @@
       S3BucketName: "{{ s3_bucket_name }}"
       S3User: "{{ s3_username }}"
   when: create_vpc == "yes" and region != "us-east-1"
+    tags:
+      KubernetesCluster: "{{ stack_name }}"
 
 - name: Create Brownfield Infrastructure
   cloudformation:
@@ -125,7 +130,7 @@
       MasterInstanceType: "{{ master_instance_type }}"
       AmiId: "{{ ami }}"
       BastionInstanceType: "{{ bastion_instance_type }}"
-      BastionUserData: "{{ lookup('file', 'user_data_bastion.yml') | b64encode }}" 
+      BastionUserData: "{{ lookup('file', 'user_data_bastion.yml') | b64encode }}"
       MasterRootVolSize: 10
       BastionRootVolType: gp2
       MasterRootVolType: gp2
@@ -135,7 +140,7 @@
       MasterEtcdVolType: gp2
       MasterEmptyVolSize: 5
       MasterEmptyVolType: gp2
-      MasterUserData: "{{ lookup('file', 'user_data_master.yml') | b64encode }}" 
+      MasterUserData: "{{ lookup('file', 'user_data_master.yml') | b64encode }}"
       InfraInstanceType: "{{ node_instance_type }}"
       InfraRootVolSize: 15
       InfraRootVolType: gp2
@@ -151,6 +156,8 @@
       NodeDockerVolType: gp2
       S3BucketName: "{{ s3_bucket_name }}"
       S3User: "{{ s3_username }}"
+    tags:
+      KubernetesCluster: "{{ stack_name }}"
   when: create_vpc == "no" and byo_bastion == "no"
 
 - name: Create Brownfield Infrastructure with existing bastion
@@ -186,7 +193,7 @@
       MasterEtcdVolType: gp2
       MasterEmptyVolSize: 5
       MasterEmptyVolType: gp2
-      MasterUserData: "{{ lookup('file', 'user_data_master.yml') | b64encode }}" 
+      MasterUserData: "{{ lookup('file', 'user_data_master.yml') | b64encode }}"
       InfraInstanceType: "{{ node_instance_type }}"
       InfraRootVolSize: 15
       InfraRootVolType: gp2
@@ -202,9 +209,11 @@
       NodeDockerVolType: gp2
       S3BucketName: "{{ s3_bucket_name }}"
       S3User: "{{ s3_username }}"
+    tags:
+      KubernetesCluster: "{{ stack_name }}"
   when: create_vpc == "no" and byo_bastion == "yes"
 
-- name: Add App Node 
+- name: Add App Node
   cloudformation:
     stack_name: "{{ stack_name }}-{{ shortname }}"
     state: "present"
@@ -227,9 +236,11 @@
       NodeDockerVolType: gp2
       NodeInstanceProfile: "{{ iam_role }}"
       NodeType: "{{ node_type }}"
+    tags:
+      KubernetesCluster: "{{ stack_name }}"
   when: create_vpc == "no" and add_node == "yes" and node_type == "app"
 
-- name: Add Infra Node 
+- name: Add Infra Node
   cloudformation:
     stack_name: "{{ stack_name }}-{{ shortname }}"
     state: "present"
@@ -253,4 +264,6 @@
       NodeDockerVolType: gp2
       NodeInstanceProfile: "{{ iam_role }}"
       NodeType: "{{ node_type }}"
+    tags:
+      KubernetesCluster: "{{ stack_name }}"
   when: create_vpc == "no" and add_node == "yes" and node_type == "infra"

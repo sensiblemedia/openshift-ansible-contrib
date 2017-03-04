@@ -1,4 +1,5 @@
-- include: /usr/share/ansible/openshift-ansible/playbooks/byo/config.yml 
+---
+- include: /usr/share/ansible/openshift-ansible/playbooks/byo/config.yml
   vars:
     debug_level: 2
     openshift_debug_level: "{{ debug_level }}"
@@ -21,16 +22,18 @@
     osm_cluster_network_cidr: 172.16.0.0/16
     openshift_registry_selector: "role=infra"
     openshift_router_selector: "role=infra"
-    openshift_hosted_router_replicas: 2
-    openshift_hosted_registry_replicas: 2
+    openshift_hosted_router_replicas: 3
+    openshift_hosted_registry_replicas: 3
     openshift_master_cluster_method: native
     openshift_node_local_quota_per_fsgroup: 512Mi
     openshift_cloudprovider_kind: aws
     openshift_master_cluster_hostname: "internal-openshift-master.{{ public_hosted_zone }}"
     openshift_master_cluster_public_hostname: "openshift-master.{{ public_hosted_zone }}"
     osm_default_subdomain: "{{ wildcard_zone }}"
+    openshift_master_default_subdomain: "{{osm_default_subdomain}}"
     osm_default_node_selector: "role=app"
     deployment_type: openshift-enterprise
+    os_sdn_network_plugin_name: "redhat/{{ openshift_sdn }}"
     openshift_master_identity_providers:
     - name: github
       kind: GitHubIdentityProvider
