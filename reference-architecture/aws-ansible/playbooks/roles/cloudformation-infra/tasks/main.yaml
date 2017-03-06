@@ -101,9 +101,9 @@
       NodeDockerVolType: gp2
       S3BucketName: "{{ s3_bucket_name }}"
       S3User: "{{ s3_username }}"
-  when: create_vpc == "yes" and region != "us-east-1"
     tags:
       KubernetesCluster: "{{ stack_name }}"
+  when: create_vpc == "yes" and region != "us-east-1"
 
 - name: Create Brownfield Infrastructure
   cloudformation:
