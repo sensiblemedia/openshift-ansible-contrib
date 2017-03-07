@@ -10,7 +10,7 @@
 
   - name: Install the required rpms
     package:
-      name: NetworkManager 
+      name: NetworkManager
       state: latest
 
   - name: Start NetworkManager and network
@@ -33,4 +33,4 @@
     - atomic-openshift-excluder
     - atomic-openshift-docker-excluder
 
-  when: deployment_type == 'openshift-enterprise' 
+  when: deployment_type == 'openshift-enterprise'

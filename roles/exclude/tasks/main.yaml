@@ -14,12 +14,12 @@
     - name: Exclude atomic-openshift packages
       command: atomic-openshift-excluder exclude
       when:
-      - "{{ openshift_excluder_installed.installed_versions | default([]) | length > 0 }}"
+        - "{{ openshift_excluder_installed.installed_versions | default([]) | length > 0 }}"
 
 
     - name: Exclude docker package
       command: atomic-openshift-docker-excluder exclude
       when:
-      - "{{ openshift_excluder_installed.installed_versions | default([]) | length > 0 }}"
+        - "{{ openshift_excluder_installed.installed_versions | default([]) | length > 0 }}"
 
   when: not openshift.common.is_atomic | bool
