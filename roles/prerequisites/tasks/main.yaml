@@ -37,7 +37,7 @@
   - name: disable excluder if installed
     command: "{{ item }}"
     with_items:
-    - "{{ openshift.common.service_type }}-excluder unexclude"
-    - "{{ openshift.common.service_type }}-docker-excluder unexclude"
+    - atomic-openshift-excluder unexclude
+    - atomic-openshift-docker-excluder unexclude
 
   when: deployment_type == 'openshift-enterprise'
