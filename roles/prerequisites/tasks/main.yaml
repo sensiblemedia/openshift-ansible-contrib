@@ -32,5 +32,12 @@
     with_items:
     - atomic-openshift-excluder
     - atomic-openshift-docker-excluder
+    register: installed
+
+  - name: disable excluder if installed
+    command: "{{ item }}"
+    with_items:
+    - "{{ openshift.common.service_type }}-excluder unexclude"
+    - "{{ openshift.common.service_type }}-docker-excluder unexclude"
 
   when: deployment_type == 'openshift-enterprise'

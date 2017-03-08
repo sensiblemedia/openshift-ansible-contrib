@@ -6,7 +6,7 @@
 - block:
     - name: Determine if excluder packages are installed
       rpm_q:
-        name: "{{ openshift.common.service_type }}-excluder"
+        name: "atomic-openshift-excluder"
         state: present
       register: openshift_excluder_installed
       failed_when: false
