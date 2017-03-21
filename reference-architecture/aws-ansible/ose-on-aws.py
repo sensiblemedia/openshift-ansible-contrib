@@ -127,7 +127,7 @@ def launch_refarch_env(region=None,
   
   # Prompt for route53 root domain name
   if route53_hosted_rootzone is None:
-        route53_hosted_zone = click.prompt('Hosted Route53 Zone')
+        route53_hosted_rootzone = public_hosted_zone
 
   if s3_bucket_name is None:
     s3_bucket_name = stack_name + '-ocp-registry-' + public_hosted_zone.split('.')[0]
