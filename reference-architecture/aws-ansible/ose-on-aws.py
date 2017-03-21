@@ -55,6 +55,8 @@ import sys
 
 ### DNS options
 @click.option('--public-hosted-zone', help='hosted zone for accessing the environment')
+@click.option('--route53-hosted-rootzone', help='Specify Route53 root domain (domain.com)',
+              show_default=True)
 @click.option('--app-dns-prefix', default='apps', help='application dns prefix',
               show_default=True)
 
@@ -113,6 +115,7 @@ def launch_refarch_env(region=None,
                     containerized=None,
                     s3_bucket_name=None,
                     s3_username=None,
+                    route53_hosted_rootzone=None,
                     github_client_id=None,
                     github_client_secret=None,
                     github_organization=None,
@@ -121,7 +124,10 @@ def launch_refarch_env(region=None,
   # Need to prompt for the R53 zone:
   if public_hosted_zone is None:
     public_hosted_zone = click.prompt('Hosted DNS zone for accessing the environment')
-
+  
+  # Prompt for route53 root domain name
+  if route53_hosted_rootzone is None:
+        route53_hosted_zone = click.prompt('Hosted Route53 Zone')
 
   if s3_bucket_name is None:
     s3_bucket_name = stack_name + '-ocp-registry-' + public_hosted_zone.split('.')[0]
@@ -217,6 +223,7 @@ def launch_refarch_env(region=None,
   click.echo('\tcontainerized: %s' % containerized)
   click.echo('\ts3_bucket_name: %s' % s3_bucket_name)
   click.echo('\ts3_username: %s' % s3_username)
+  click.echo('\troute53_hosted_rootzone: %s' % route53_hosted_rootzone)
   click.echo('\tgithub_client_id: *******')
   click.echo('\tgithub_client_secret: *******')
   click.echo('\tgithub_organization: %s' % (','.join(github_organization)))
@@ -276,6 +283,7 @@ def launch_refarch_env(region=None,
     containerized=%s \
     s3_bucket_name=%s \
     s3_username=%s \
+    route53_hosted_rootzone=%s \
     github_client_id=%s \
     github_client_secret=%s \
     github_organization=%s\' %s' % (region,
@@ -309,6 +317,7 @@ def launch_refarch_env(region=None,
                     containerized,
                     s3_bucket_name,
                     s3_username,
+                    route53_hosted_rootzone,
                     github_client_id,
                     github_client_secret,
                     str(map(lambda x: x.encode('utf8'), github_organization)).replace("'", '"').replace(' ', ''),

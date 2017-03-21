@@ -2,7 +2,7 @@
 - name: Add bastion to group
   add_host:
     name: "bastion.{{ public_hosted_zone }}"
-    groups: bastion
+    groups: "bastion.{{ stack_name }}"
   when:
     - byo_bastion == "no"
 

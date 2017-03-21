@@ -4,6 +4,9 @@
     "KeyName": {
       "Type": "AWS::EC2::KeyPair::KeyName"
     },
+     "Route53HostedRootZone": {
+      "Type": "String"
+    },
     "Route53HostedZone": {
       "Type": "String"
     },
@@ -67,7 +70,7 @@
         "NewNode"
       ],
       "Properties": {
-        "HostedZoneName": { "Ref": "Route53HostedZone" },
+        "HostedZoneName": { "Ref": "Route53HostedRootZone" },
         "RecordSets": [
           {
             "Name":  { "Ref": "NodeName" },
