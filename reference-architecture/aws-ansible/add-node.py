@@ -27,6 +27,8 @@ import sys
 
 ### DNS options
 @click.option('--public-hosted-zone', help='hosted zone for accessing the environment')
+@click.option('--route53-hosted-rootzone', help='Specify Route53 root domain (domain.com)',
+              show_default=True)
 @click.option('--app-dns-prefix', default='apps', help='application dns prefix',
               show_default=True)
 
@@ -77,12 +79,17 @@ def launch_refarch_env(region=None,
                     node_type=None,
                     iam_role=None,
                     infra_elb_name=None,
+                    route53_hosted_rootzone=None,
                     existing_stack=None,
                     verbose=0):
 
   # Need to prompt for the R53 zone:
   if public_hosted_zone is None:
     public_hosted_zone = click.prompt('Hosted DNS zone for accessing the environment')
+
+# Prompt for route53 root domain name
+if route53_hosted_rootzone is None:
+        route53_hosted_rootzone = public_hosted_zone
 
   if iam_role is None:
     iam_role = click.prompt('Specify the name of the existing IAM Instance Profile')
@@ -153,6 +160,7 @@ def launch_refarch_env(region=None,
   click.echo('\tnode_type: %s' % node_type)
   click.echo('\tiam_role: %s' % iam_role)
   click.echo('\tinfra_elb_name: %s' % infra_elb_name)
+  click.echo('\troute53_hosted_rootzone: %s' % route53_hosted_rootzone)
   click.echo('\texisting_stack: %s' % existing_stack)
   click.echo("")
 
@@ -202,6 +210,7 @@ def launch_refarch_env(region=None,
     infra_elb_name=%s \
     create_key=%s \
     create_vpc=%s \
+    route53_hosted_rootzone=%s \
     stack_name=%s \' %s' % (region,
                     ami,
                     keypair,
@@ -224,6 +233,7 @@ def launch_refarch_env(region=None,
                     infra_elb_name,
                     create_key,
                     create_vpc,
+                    route53_hosted_rootzone,
                     existing_stack,
                     playbook)
 
